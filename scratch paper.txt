@@ -1,0 +1,16 @@
+
+Wishlist-to-do
+- a website where you can make lists of about anything 
+	- brithday inuman toka-toka
+	- wedding RSVP
+	- to do list
+	- itenirary
+	- ...
+Each list contains items. As a user, you can add items, and people (even you) can tag an item. 
+May 30
+
+
+
+
+
+
