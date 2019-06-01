@@ -1,4 +1,11 @@
 <h1>This is the Index Page /lists GET</h1>
 
+
+<% lists.forEach(function(list){ %>
+	<li><%= list.name %></li>
+	<li><%= list.description %></li>
+	<br / >
+<% })%> 
+
 <a href = "/lists/new">Make a new list</a>
 
