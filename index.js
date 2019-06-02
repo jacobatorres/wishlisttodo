@@ -12,6 +12,7 @@ port = 3000;
 app.set("view engine", "ejs");
 app.use(bodyparser.urlencoded({extended: true}));
 mongoose.connect('mongodb://localhost:27017/wishlist_app', {useNewUrlParser: true});
+app.use(express.static(__dirname + "/public"));
 
 
 /// routes

@@ -1,14 +1,45 @@
 <% include ./partials/header %>
 
-<h1>This is the Index Page /lists GET</h1>
 
 
-<% lists.forEach(function(list){ %>
-	<li><%= list.name %></li>
-	<li><%= list.description %></li>
-	<br / >
-<% })%> 
 
-<a href = "/lists/new">Make a new list</a>
+    <section id="blog" class="py-3">
+      <div class="container">
+      	<h1>Your WishLists</h1>
+		<button class = "btn btn-outline-dark btn-light mb-4"><a href = "/lists/new" style="color:black;" >Make a new list</a></button>
+
+        <div class="row">
+          <div class="col">
+            <div class="card-columns">
+
+				<% lists.forEach(function(list){ %>
+
+		              <div class="card">
+		                <img
+		                  src="https://source.unsplash.com/random/300x200"
+		                  alt=""
+		                  class="img-fluid card-img-top"
+		                />
+		                <div class="card-body">
+		                  <h4 class="card-title">
+		                    <%= list.name %>
+		                  </h4>
+<!-- 		                  <small class="text-muted">Written by jacob</small>
+		                  <hr />
+ -->		                  <p class="card-text">
+		                    <%= list.description %>
+		                  </p>
+		                </div>
+		              </div>
+
+				<% })%> 
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
 
 <% include ./partials/footer %>
