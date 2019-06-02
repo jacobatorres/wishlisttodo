@@ -3,7 +3,9 @@
   color: #fff;
 } /* color of the footer  */
 
-
+#main-header {
+	background: #F6F2F2;
+}
 
 /* bottom four: make footer stick */
 html, body {
@@ -21,5 +23,5 @@ body {
 }
 
 .navbar {
-	border-bottom:1px dotted #000;
+	border-bottom:1px #000;
 }
