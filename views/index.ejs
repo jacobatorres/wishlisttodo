@@ -6,7 +6,7 @@
     <section id="blog" class="py-3">
       <div class="container">
       	<h1>Your WishLists</h1>
-		<button class = "btn btn-outline-dark btn-light mb-4"><a href = "/lists/new" style="color:black;" >Make a new list</a></button>
+		<button class = "btn btn-link mb-4" ><a href = "/lists/new" style= "text-decoration: underline; color: black;" >Make a new list</a></button>
 
         <div class="row">
           <div class="col">
@@ -15,21 +15,26 @@
 				<% lists.forEach(function(list){ %>
 
 		              <div class="card">
+
+		              	<a href = "/lists/<%=list._id %>" style= "color: black;">
 		                <img
-		                  src="https://source.unsplash.com/random/300x200"
+		                  src="https://source.unsplash.com/random/300x200"  
 		                  alt=""
 		                  class="img-fluid card-img-top"
-		                />
+		                />  
 		                <div class="card-body">
 		                  <h4 class="card-title">
 		                    <%= list.name %>
 		                  </h4>
+		              	</a>
+
 <!-- 		                  <small class="text-muted">Written by jacob</small>
 		                  <hr />
  -->		                  <p class="card-text">
 		                    <%= list.description %>
 		                  </p>
 		                </div>
+
 		              </div>
 
 				<% })%> 

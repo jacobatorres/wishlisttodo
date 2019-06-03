@@ -25,3 +25,20 @@ body {
 .navbar {
 	border-bottom:1px #000;
 }
+
+/*center the things in the page*/
+.center_items {
+	width: 30%; 
+	margin: 20px auto;
+}
+
+
+#center_items_show {
+	width: 60%; 
+	margin: 20px auto;
+}
+
+/*make image occupy whole div*/
+#occupy_div {
+   width: 100%;
+}
