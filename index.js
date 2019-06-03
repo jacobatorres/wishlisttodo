@@ -116,7 +116,24 @@ app.put("/lists/:id", function(req, res){
 		}
 	});
 });
+
+
 // delete
+app.delete("/lists/:id", function(req, res){
+
+	List.findByIdAndRemove(req.params.id, function(err){
+		if (err){
+			console.log("err");
+		} else {
+			// deleted successfully
+			res.redirect("/lists");
+		}
+	})
+
+
+
+});
+
 
 
 

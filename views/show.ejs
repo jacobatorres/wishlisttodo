@@ -17,6 +17,9 @@
 
 	<button class = "btn btn-link mb-4" ><a href = "/lists/<%= list._id %>/edit" style= "text-decoration: underline; color: black;">Edit</a></button>
 
+	<form style="display: inline;" action = "/lists/<%= list._id %>?_method=DELETE" method="POST">
+		<button class = "btn btn-link mb-4" style= "text-decoration: underline; color: black;">Delete</button>
+	</form>
 	<button class = "btn btn-link mb-4" ><a href = "/lists" style= "text-decoration: underline; color: black;">Go Back</a></button>
 
 
