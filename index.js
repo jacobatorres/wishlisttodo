@@ -1,13 +1,42 @@
+// env variables
+require('dotenv').config();
+
+
 const express = require("express"),
 app = express(),
 bodyparser = require("body-parser"),
 mongoose = require("mongoose"),
 // models
 methodOverride = require("method-override"),
-
 List = require("./models/lists"),
 hostname = '127.0.0.1',
 port = 3000;
+
+// needed for image upload
+const multer = require("multer");
+const storage = multer.diskStorage({
+	filename: function(req, file, callback){
+		callback(null, Date.now() + file.originalname); // the naming of this file in cloudinary is unique
+	}
+});
+
+const imageFilter = function (req, file, cb) {
+	// only accept images, not PDF, docx, ...
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+
+const upload = multer({ storage: storage, fileFilter: imageFilter});
+
+
+const cloudinary = require('cloudinary');
+cloudinary.config({
+	cloud_name: 'desridyje',
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 
 // most necessary
@@ -47,22 +76,56 @@ app.get("/lists/new", function(req, res){
 
 
 // create route 
-app.post("/", function(req, res){
+app.post("/", upload.single('image'), function(req, res){
 
 	const list_to_add = {
 		name: req.body.name, 
 		description: req.body.description
+
 	};
 
 
-	List.create(list_to_add, function(err, newlist){
-		if(err){
-			console.log("err");
-		} else {
-			// successfully added list! go back to index
-			res.redirect("/lists")
-		}
-	});
+	cloudinary.uploader.upload(req.file.path, function(result){
+
+		// add in user reference later on... 
+		// req.body.campground.author = {
+		// id: req.user._id,
+		// username: req.user.username
+		// }
+
+		// the new image link in the db
+		// secure url is literally a URL, it's a pointer to a storage in cloudinary
+		list_to_add.image = result.secure_url;
+
+
+		List.create(list_to_add, function(err, list){
+
+			if (err){
+				console.log("YATAP");
+				return res.redirect('back');
+			} 
+
+			// if successful, see show page
+			console.log('/lists/' + list.id);
+			res.redirect('/lists/' + list.id);
+
+
+
+		})
+
+
+
+	})
+
+
+	// List.create(list_to_add, function(err, newlist){
+	// 	if(err){
+	// 		console.log("err");
+	// 	} else {
+	// 		// successfully added list! go back to index
+	// 		res.redirect("/lists")
+	// 	}
+	// });
 
 });
 

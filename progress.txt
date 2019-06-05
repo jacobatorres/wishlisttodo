@@ -1,0 +1,67 @@
+
+Wishlist-to-do
+- a website where you can make lists of about anything 
+	- brithday inuman toka-toka
+	- wedding RSVP
+	- to do list
+	- itenirary
+	- ...
+Each list contains items. As a user, you can add items, and people (even you) can tag an item. 
+May 30
+For now, let's try to make routes
+index	GET	/lists
+new	GET	/lists/new
+create	POST	/lists
+also, link GIT to it kung kaya
+all done
+
+May 31
+title, description ok, make list model for that
+show them in a list in index
+note: 
+when mongo DB is set up, you need to
+- install mongoose
+- mongoose.connect
+- make the schema
+- compile schema into
+- then you can make the schema, create new shit in the app.js
+
+// // sample list
+// List.create(
+// 	{
+// 		name: "Trip to Europe",
+// 		description: "Make sure I dont forget these things:"
+// 	}, function(err, campground){
+// 		if (err){
+// 			console.log(err);
+// 		} else {
+// 			console.log("new campground!!!");
+// 			console.log(campground);
+// 		}
+// });
+
+June 1
+Put the Campground to a model na para cleaner
+add Bootstrap, CSS setup
+
+June 2
+make bootstrap sticky
+make the show page 
+Edit / Update 
+Delete
+
+
+June 4
+Add images
+
+
+
+users
+
+
+
+
+
+
+
+

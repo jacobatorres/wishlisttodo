@@ -9,16 +9,16 @@
 
 
 	<div class = "thumbnail">
-		<img id = "occupy_div" class = "img-responsive" src = "https://source.unsplash.com/random/300x200" >
+		<img id = "occupy_div" class = "img-responsive" src = "<%= list.image%>" >
 		<div class = "caption-full">
 			<p class = "m-3"><%= list.description %></p>
 		</div>
 	</div>
 
-	<button class = "btn btn-link mb-4" ><a href = "/lists/<%= list._id %>/edit" style= "text-decoration: underline; color: black;">Edit</a></button>
+	<button class = "btn btn-link mb-4" ><a href = "/lists/<%= list._id %>/edit" style= "text-decoration: underline; color: #6ADB3A;">Edit</a></button>
 
 	<form style="display: inline;" action = "/lists/<%= list._id %>?_method=DELETE" method="POST">
-		<button class = "btn btn-link mb-4" style= "text-decoration: underline; color: black;">Delete</button>
+		<button class = "btn btn-link mb-4" style= "text-decoration: underline; color: #CB2530;">Delete</button>
 	</form>
 	<button class = "btn btn-link mb-4" ><a href = "/lists" style= "text-decoration: underline; color: black;">Go Back</a></button>
 

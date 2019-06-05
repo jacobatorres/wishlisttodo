@@ -4,6 +4,7 @@ var mongoose = require("mongoose");
 // schema for the list
 var listSchema = new mongoose.Schema({
 	name: String,
+	image: {type: String, default: "https://source.unsplash.com/random/300x200"},
 	description: String
 });
 

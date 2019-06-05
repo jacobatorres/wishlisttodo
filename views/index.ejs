@@ -6,7 +6,7 @@
     <section id="blog" class="py-3">
       <div class="container">
       	<h1>Your WishLists</h1>
-		<button class = "btn btn-link mb-4" ><a href = "/lists/new" style= "text-decoration: underline; color: black;" >Make a new list</a></button>
+		<button class = "btn btn-link mb-4" ><a href = "/lists/new" style= "text-decoration: underline; color: #43A4BC;" >Make a new list</a></button>
 
         <div class="row">
           <div class="col">
@@ -18,7 +18,7 @@
 
 		              	<a href = "/lists/<%=list._id %>" style= "color: black;">
 		                <img
-		                  src="https://source.unsplash.com/random/300x200"  
+		                  src="<%= list.image%>"
 		                  alt=""
 		                  class="img-fluid card-img-top"
 		                />  
