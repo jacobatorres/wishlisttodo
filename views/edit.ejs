@@ -9,12 +9,18 @@
 <div class = "center_items">
 <h1 class = "mb-4">Edit List</h1>
 
-<form action = "/lists/<%= list._id %>?_method=PUT" method = "POST">
+<form action = "/lists/<%= list._id %>?_method=PUT" method = "POST" enctype = "multipart/form-data">
 
 
 	<div class = "form-group">
 		<label for = "name">Name</label>
 		<input class="form-control"  type = "text" name = "name" value = "<%= list.name %>">
+	</div>
+
+
+	<div class = "form-group">
+		<label for = "image">Image</label>
+		<input type = "file" id="image" name = "image" accept = "image/*" required>
 	</div>
 
 	<div class = "form-group">

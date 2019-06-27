@@ -42,7 +42,7 @@ cloudinary.config({
 // most necessary
 app.set("view engine", "ejs");
 app.use(bodyparser.urlencoded({extended: true}));
-mongoose.connect('mongodb://localhost:27017/wishlist_app', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/wishlist_appv2', {useNewUrlParser: true});
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 
@@ -57,7 +57,7 @@ app.get("/", function(req, res){
 // index route
 app.get("/lists", function(req, res){
 
-	// find all campgrounds
+	// find all lists
 	List.find({}, function(err, all_lists){
 		if(err){
 			console.log(err);
@@ -85,7 +85,11 @@ app.post("/", upload.single('image'), function(req, res){
 	};
 
 
-	cloudinary.uploader.upload(req.file.path, function(result){
+	cloudinary.v2.uploader.upload(req.file.path, function(err, result){
+
+		if (err){
+			console.log("error at list post part");
+		}
 
 		// add in user reference later on... 
 		// req.body.campground.author = {
@@ -96,6 +100,7 @@ app.post("/", upload.single('image'), function(req, res){
 		// the new image link in the db
 		// secure url is literally a URL, it's a pointer to a storage in cloudinary
 		list_to_add.image = result.secure_url;
+		list_to_add.imageId = result.public_id;
 
 
 		List.create(list_to_add, function(err, list){
@@ -160,21 +165,67 @@ app.get("/lists/:id/edit", function(req, res){
 
 
 // update
-app.put("/lists/:id", function(req, res){
+app.put("/lists/:id", upload.single('image'), function(req, res){
 	// prep the body to update
 
-	const list_to_update = {
-		name: req.body.name, 
-		description: req.body.description
-	};
 
-
-	List.findByIdAndUpdate(req.params.id, list_to_update, function(err, editedlist){
+	List.findById(req.params.id, function(err, list){
 		if (err){
 			console.log("err");
 		} else {
-			console.log("yess");
-			res.redirect("/lists/" + req.params.id);
+
+			console.log("old image id: " + list.imageId);
+			console.log("sup losers");
+			// if someone uploaded a file (middleware), then do this
+			if (req.file){
+
+				console.log(list.imageId);
+				cloudinary.v2.uploader.destroy(list.imageId, function(err, result){
+					if(err){
+						console.log(result, err);
+						console.log("suppp");
+					}
+
+					cloudinary.v2.uploader.upload(req.file.path, function(err, result){
+						if (err){
+							console.log("error for some reason2 ");
+							// return res.redirect("back");
+						}
+
+
+
+					
+						// add the imageId and image (name, description are already in list object)
+						list.imageId = result.public_id;
+						list.image = result.secure_url;
+
+						list.name = req.body.name;
+						list.description = req.body.name;
+
+						console.log(list);
+
+
+						List.findByIdAndUpdate(req.params.id, list, function(err, updatedlist){
+							if (err){
+								console.log("err");
+							} else {
+								console.log("yess");
+								res.redirect("/lists/" + req.params.id);
+							}
+
+						});
+
+
+					});
+
+
+					
+				});
+			}
+
+
+
+
 
 		}
 	});

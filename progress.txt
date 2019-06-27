@@ -55,8 +55,18 @@ June 4
 Add images
 
 
+Edit / delete images
 
-users
+
+
+add users!!!
+	- model
+	- reference...
+
+
+
+the items
+
 
 
 

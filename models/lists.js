@@ -5,7 +5,8 @@ var mongoose = require("mongoose");
 var listSchema = new mongoose.Schema({
 	name: String,
 	image: {type: String, default: "https://source.unsplash.com/random/300x200"},
-	description: String
+	description: String,
+	imageId: String
 });
 
 // compile to a model
