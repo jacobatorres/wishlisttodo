@@ -9,7 +9,9 @@ mongoose = require("mongoose"),
 // models
 methodOverride = require("method-override"),
 List = require("./models/list"),
+User = require("./models/user"),
 hostname = '127.0.0.1',
+passport = require("passport"),
 port = 3000;
 
 // needed for image upload
@@ -53,6 +55,56 @@ app.use(methodOverride("_method"));
 app.get("/", function(req, res){
 	res.redirect("/lists");
 });
+
+
+// sign up page view
+app.get("/signup", function(req, res){
+	res.render("signup");
+})
+
+
+// actually write the new user to the DB
+app.post("/signup", function(req, res){
+
+
+	var newUser = new User({username: req.body.username});
+
+
+	User.register(newUser, req.body.password, function(err, user){
+
+		if (err){
+			console.log(err);
+		} else {
+
+			// successfully logged in
+			passport.authenticate("local")(req, res, function(){
+				res.redirect("/lists");
+			});
+
+		}
+
+	})
+
+
+
+})
+
+
+app.post("")
+
+
+
+app.get("/login", function(req, res){
+	res.render("login");
+})
+
+
+
+
+
+// login page
+
+
 
 // index route
 app.get("/lists", function(req, res){
