@@ -49,7 +49,43 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 
 
+// session for logging in
+// might also be needed for middleware?
+app.use(require("express-session")({
+    secret: "nadarangnanaman",
+    resave: false,
+    saveUninitialized: false
+}));
+
+
+// passport dependencies
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate())); // you can .authenticate because of plugin in user.js
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+
+// global username
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user;
+    next();
+});
+
+
+
+
+
+
+
 /// routes
+///
+///
+///
+///
+
+
 
 // future landing page
 app.get("/", function(req, res){
