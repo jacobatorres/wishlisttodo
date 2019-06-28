@@ -8,7 +8,7 @@ bodyparser = require("body-parser"),
 mongoose = require("mongoose"),
 // models
 methodOverride = require("method-override"),
-List = require("./models/lists"),
+List = require("./models/list"),
 hostname = '127.0.0.1',
 port = 3000;
 
@@ -200,20 +200,15 @@ app.put("/lists/:id", upload.single('image'), function(req, res){
 						list.image = result.secure_url;
 
 						list.name = req.body.name;
-						list.description = req.body.name;
+						list.description = req.body.description;
+
+
+						console.log("boyyy");
+						list.save();
+						res.redirect("/lists/" + list._id);
 
 						console.log(list);
 
-
-						List.findByIdAndUpdate(req.params.id, list, function(err, updatedlist){
-							if (err){
-								console.log("err");
-							} else {
-								console.log("yess");
-								res.redirect("/lists/" + req.params.id);
-							}
-
-						});
 
 
 					});

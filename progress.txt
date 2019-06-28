@@ -68,8 +68,14 @@ add users!!!
 the items
 
 
+June 26
+
+make the editing not be async
 
 
+
+- make the user model in the backend
+- link / associate / reference the user to the list
 
 
 
