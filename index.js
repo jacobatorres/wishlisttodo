@@ -12,6 +12,7 @@ List = require("./models/list"),
 User = require("./models/user"),
 hostname = '127.0.0.1',
 passport = require("passport"),
+LocalStrategy = require("passport-local"),
 port = 3000;
 
 // needed for image upload
@@ -125,9 +126,10 @@ app.post("/signup", function(req, res){
 
 })
 
-
-app.post("")
-
+app.get("/logout", function(req, res){
+	req.logout();
+	res.redirect("/lists");
+});
 
 
 app.get("/login", function(req, res){
@@ -135,6 +137,15 @@ app.get("/login", function(req, res){
 })
 
 
+// login post
+// do the middleware to verify if indeed user is valid
+app.post("/login", passport.authenticate("local", 
+	{
+		successRedirect: "/lists",
+		failureRedirect: "/login"
+	}), function(req,res){
+
+});
 
 
 

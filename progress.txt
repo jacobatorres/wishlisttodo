@@ -75,9 +75,13 @@ make the editing not be async
 
 
 - make the user model in the backend
-- link / associate / reference the user to the list
 
 
+next:
+
+- you can only see the lists when logged in (CR style)
+- middleware stuff...
+- refactor middleware, other files as well
 
 
 
