@@ -46,7 +46,7 @@ cloudinary.config({
 // most necessary
 app.set("view engine", "ejs");
 app.use(bodyparser.urlencoded({extended: true}));
-mongoose.connect('mongodb://localhost:27017/wishlist_appv2', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/wishlist_appv3', {useNewUrlParser: true});
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 
@@ -177,7 +177,17 @@ app.get("/lists/new", middleware.isLoggedIn, function(req, res){
 
 
 // create route 
-app.post("/", upload.single('image'), function(req, res){
+app.post("/", upload.single('image'), middleware.isLoggedIn, function(req, res){
+
+
+	console.log("wsasup user:");
+	console.log(req.user._id);
+	console.log(req.user.username);
+
+	const author_of_list = {
+		id: req.user._id,
+		username: req.user.username
+	}
 
 	const list_to_add = {
 		name: req.body.name, 
@@ -202,12 +212,14 @@ app.post("/", upload.single('image'), function(req, res){
 		// secure url is literally a URL, it's a pointer to a storage in cloudinary
 		list_to_add.image = result.secure_url;
 		list_to_add.imageId = result.public_id;
+		list_to_add.author = author_of_list;
 
 
 		List.create(list_to_add, function(err, list){
 
 			if (err){
 				console.log("YATAP");
+				console.log(list.author);
 				return res.redirect('back');
 			} 
 
@@ -339,8 +351,6 @@ app.delete("/lists/:id", function(req, res){
 			res.redirect("/lists");
 		}
 	})
-
-
 
 });
 

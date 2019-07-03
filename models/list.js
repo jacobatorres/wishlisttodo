@@ -6,7 +6,15 @@ var listSchema = new mongoose.Schema({
 	name: String,
 	image: {type: String, default: "https://source.unsplash.com/random/300x200"},
 	description: String,
-	imageId: String
+	imageId: String,
+
+	author: {
+		id: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "User"
+		}, 
+		username: String
+	}
 });
 
 // compile to a model
