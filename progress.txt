@@ -81,7 +81,19 @@ next:
 
 - you can only see the lists when logged in (CR style)
 - middleware stuff...
-- refactor middleware, other files as well
+
+- link user and list
+- check list ownership
+- refactor !!! other files as well
+
+
+- add flash
+
+
+- items?
 
 
 
+- user profiles (show user + lists... populate.posts.exec... #322 video colt steele 10:00 min mark)
+- have ownership with the user
+- middleware to only delete / edit those that are yours

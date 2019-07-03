@@ -13,6 +13,7 @@ User = require("./models/user"),
 hostname = '127.0.0.1',
 passport = require("passport"),
 LocalStrategy = require("passport-local"),
+middleware = require("./middleware");
 port = 3000;
 
 // needed for image upload
@@ -111,6 +112,7 @@ app.post("/signup", function(req, res){
 
 		if (err){
 			console.log(err);
+			res.redirect("/signup");
 		} else {
 
 			// successfully logged in
@@ -169,7 +171,7 @@ app.get("/lists", function(req, res){
 
 
 // new route
-app.get("/lists/new", function(req, res){
+app.get("/lists/new", middleware.isLoggedIn, function(req, res){
 	res.render("new");
 });
 
@@ -234,7 +236,7 @@ app.post("/", upload.single('image'), function(req, res){
 });
 
 // show
-app.get("/lists/:id", function(req, res){
+app.get("/lists/:id", middleware.isLoggedIn, function(req, res){
 
 
 	List.findById(req.params.id, function(err, foundlist){
@@ -249,7 +251,7 @@ app.get("/lists/:id", function(req, res){
 });
 
 // edit 
-app.get("/lists/:id/edit", function(req, res){
+app.get("/lists/:id/edit", middleware.isLoggedIn, function(req, res){
 
 	List.findById(req.params.id, function(err, foundlist){
 		if (err){
