@@ -263,7 +263,7 @@ app.get("/lists/:id", middleware.isLoggedIn, function(req, res){
 });
 
 // edit 
-app.get("/lists/:id/edit", middleware.isLoggedIn, function(req, res){
+app.get("/lists/:id/edit", middleware.isLoggedIn, middleware.checkownership, function(req, res){
 
 	List.findById(req.params.id, function(err, foundlist){
 		if (err){
@@ -278,7 +278,7 @@ app.get("/lists/:id/edit", middleware.isLoggedIn, function(req, res){
 
 
 // update
-app.put("/lists/:id", upload.single('image'), function(req, res){
+app.put("/lists/:id", upload.single('image'), middleware.checkownership, function(req, res){
 	// prep the body to update
 
 
@@ -341,7 +341,7 @@ app.put("/lists/:id", upload.single('image'), function(req, res){
 
 
 // delete
-app.delete("/lists/:id", function(req, res){
+app.delete("/lists/:id", middleware.checkownership, function(req, res){
 
 	List.findByIdAndRemove(req.params.id, function(err){
 		if (err){

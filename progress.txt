@@ -82,18 +82,29 @@ next:
 - you can only see the lists when logged in (CR style)
 - middleware stuff...
 
-- link user and list
-- check list ownership
-- refactor !!! other files as well
+- link user and list xxx
 
 
-- add flash
+
+- you can only edit / delete your lists, middleware for check list ownership
+- refactor other files as well
 
 
 - items?
 
 
 
-- user profiles (show user + lists... populate.posts.exec... #322 video colt steele 10:00 min mark)
-- have ownership with the user
+
+
+/// im back, 7/14
+
 - middleware to only delete / edit those that are yours
+- (i think kaya naman) when editing naka default yung picture? 
+- refactor
+
+- add flash
+
+
+- user profiles (show user + lists... populate.posts.exec... #322 video colt steele 10:00 min mark)
+
+- items model
