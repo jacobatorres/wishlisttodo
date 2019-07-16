@@ -98,8 +98,8 @@ next:
 
 /// im back, 7/14
 
-- middleware to only delete / edit those that are yours
-- (i think kaya naman) when editing naka default yung picture? 
+- middleware to only delete / edit those that are yours xxx
+- (i think kaya naman) when editing naka default yung picture?  xxx
 - refactor
 
 - add flash
