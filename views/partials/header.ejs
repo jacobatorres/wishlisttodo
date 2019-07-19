@@ -60,8 +60,8 @@
               </li>
               
           <% } else { %>  
+              <li><a class="nav-link"><%= currentUser.username%>'s Lists</a></li>
               <li><a href = "/logout" class="nav-link">Logout</a></li>
-              <li><a class="nav-link"><%= currentUser.username%></a></li>
 
           <% } %>
 
@@ -75,3 +75,14 @@
 
 
   <div class = "container content mt-5">
+
+  <div class = "container mt-3">
+    <% if (flash_success && flash_success.length > 0) {%>
+      <div class = "alert alert-success" role = "alert"><%= flash_success %></div>
+    <% }%>
+
+    <%  if (flash_error && flash_error.length > 0) {%>
+      <div class = "alert alert-danger" role = "alert"><%= flash_error %></div>
+    <% }%>
+
+  </div>

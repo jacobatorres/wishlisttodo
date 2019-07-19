@@ -2,23 +2,28 @@
 require('dotenv').config();
 
 
+
+
 const express = require("express"),
-app = express(),
 bodyparser = require("body-parser"),
 mongoose = require("mongoose"),
-// models
 methodOverride = require("method-override"),
+session = require('express-session'),
+cookieParser = require('cookie-parser'),
+flash = require('connect-flash'),
 List = require("./models/list"),
 User = require("./models/user"),
 hostname = '127.0.0.1',
 passport = require("passport"),
 LocalStrategy = require("passport-local"),
 middleware = require("./middleware");
-port = 3000;
+port = 3000
+app = express();
 
 
 
-// most necessary
+
+// necessary for mongodb, referencing CSS files
 app.set("view engine", "ejs");
 app.use(bodyparser.urlencoded({extended: true}));
 mongoose.connect('mongodb://localhost:27017/wishlist_appv3', {useNewUrlParser: true});
@@ -26,14 +31,25 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 
 
-// session for logging in
-// might also be needed for middleware?
-app.use(require("express-session")({
-    secret: "nadarangnanaman",
-    resave: false,
-    saveUninitialized: false
-}));
+// // session for logging in
+// // might also be needed for middleware?
+// app.use(require("express-session")({
+//     secret: "nadarangnanaman",
+//     resave: false,
+//     saveUninitialized: false
+// }));
 
+// for flash
+app.use(cookieParser('secret'));
+app.use(session({cookie: {maxAge: 60000}}));
+app.use(flash());
+
+
+app.use(function (req, res, next) {
+  // flash a message
+  req.flash('info', 'hello!');
+  next();
+})
 
 // passport dependencies
 app.use(passport.initialize());
@@ -47,6 +63,8 @@ passport.deserializeUser(User.deserializeUser());
 // global username
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    res.locals.flash_success = req.flash("success");
+    res.locals.flash_error = req.flash("error");
     next();
 });
 

@@ -5,11 +5,8 @@ var List = require("../models/list");
 var User = require("../models/user");
 
 
-console.log("im in");
-
 middlewareobject.checkownership = function(req, res, next){
 
-	console.log("eyy check ownership");
 	// check if logged in
 	// then, check if he owns the list
 	// if so, next()
@@ -30,7 +27,7 @@ middlewareobject.checkownership = function(req, res, next){
 
 				next();
 			} else {
-				console.log("you are not the author of this page...");
+				req.flash("error", "You're not the author of this list!");
 				res.redirect("/lists/" + foundlist._id );
 			}
 
@@ -57,7 +54,7 @@ middlewareobject.isLoggedIn = function(req, res, next){
 
 
 	// FLASH: must be logged in first
-
+	req.flash("error", "You must be logged in first!");
 	res.redirect("/login");
 
 

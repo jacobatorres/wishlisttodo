@@ -100,11 +100,8 @@ next:
 
 - middleware to only delete / edit those that are yours xxx
 - (i think kaya naman) when editing naka default yung picture?  xxx
-- refactor
+- refactor xxx
 
 - add flash
-
-
 - user profiles (show user + lists... populate.posts.exec... #322 video colt steele 10:00 min mark)
-
 - items model
