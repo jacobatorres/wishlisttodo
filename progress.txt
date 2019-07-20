@@ -103,5 +103,7 @@ next:
 - refactor xxx
 
 - add flash
+
+
 - user profiles (show user + lists... populate.posts.exec... #322 video colt steele 10:00 min mark)
 - items model

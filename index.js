@@ -81,6 +81,12 @@ app.use("/", loginRoutes);
 app.use("/", listRoutes);
 
 
+// for any invalid link
+app.get("/*", function(req, res){
+	req.flash("error", "Invalid link -- sending you back to /lists");
+	return res.redirect("/lists");
+})
+
 
 
 app.listen(port, hostname, function(){
