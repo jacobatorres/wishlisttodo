@@ -60,7 +60,7 @@
               </li>
               
           <% } else { %>  
-              <li><a class="nav-link"><%= currentUser.username%>'s Lists</a></li>
+              <li><a href = "/users/<%= currentUser.username%>" class="nav-link"><%= currentUser.username%>'s Lists</a></li>
               <li><a href = "/logout" class="nav-link">Logout</a></li>
 
           <% } %>

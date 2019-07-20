@@ -74,11 +74,12 @@ app.use(function(req, res, next){
 /// routes
 loginRoutes = require("./routes/login");
 listRoutes = require("./routes/lists");
-
+userProfileRoutes = require("./routes/users");
 
 
 app.use("/", loginRoutes);
 app.use("/", listRoutes);
+app.use("/", userProfileRoutes);
 
 
 // for any invalid link
