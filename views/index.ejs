@@ -22,29 +22,37 @@
 		                  alt=""
 		                  class="img-fluid card-img-top"
 		                />  
-		                <div class="card-body">
-		                  <h4 class="card-title">
-		                    <%= list.name %>
-		                  </h4>
-		              	</a>
+		                </a>
 
+
+		                <div class="card-body">
+		                  <a href = "/lists/<%=list._id %>" style= "color: black;">
+		                
+			                  <h4 class="card-title">
+			                    <%= list.name %>
+			                  </h4>
+		                  </a>
 <!-- 		                  <small class="text-muted">Written by jacob</small>
 		                  <hr />
- -->		                  <p class="card-text">
-		                    <%= list.description %>
-		                  </p>
+ -->		              
+		                    
+		                  	<p class = "card-text float-left"><%= list.description %> </p>
+			                <p class = "card-text float-right text-secondary" style = "font-size: 1rem;">(by <%= list.author.username%>)</p>
+
 		                </div>
 
-		              </div>
+
+			            </div>
+
 
 				<% })%> 
-
+		       
+		       </div>
 
 
               </div>
             </div>
           </div>
-        </div>
     </section>
 
 <% include ./partials/footer %>
