@@ -63,4 +63,41 @@ middlewareobject.isLoggedIn = function(req, res, next){
 }
 
 
+middlewareobject.isuserthesame = function(req, res, next){
+
+	// check if the user id in the params is the same as the person
+	// if logged in
+	if (req.isAuthenticated()) {
+
+		console.log(req.user._id);
+		console.log(req.params.usernameid);
+		// search for the list he clicked, then check if he owns it
+		User.findById(req.params.usernameid, function(err, founduser){
+
+
+			// does he own the list?
+
+			console.log(req.params.usernameid);
+			console.log(founduser._id);
+			if(founduser._id.equals(req.user._id)){
+				next();
+			} else {
+				req.flash("error", "That's not you!");
+				res.redirect("/lists/");
+			}
+
+
+
+		})
+
+
+
+	}
+
+}
+
+
+
+
+
 module.exports = middlewareobject;
