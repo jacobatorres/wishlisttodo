@@ -6,6 +6,7 @@ var userSchema = new mongoose.Schema({
 	password: String,
 	isAdmin: {type: Boolean, default: false},
 	profilepic: {type: String, default: "https://source.unsplash.com/random/150x150"},
+	imageId: String, // you need this when searching for the ID and deleting it 
 	bio: String
 
 
