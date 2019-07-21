@@ -18,6 +18,7 @@
     "ejs": "^2.6.1",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
+    "lodash": "^4.17.15",
     "method-override": "^3.0.0",
     "mongoose": "^5.5.12",
     "multer": "^1.4.1",
