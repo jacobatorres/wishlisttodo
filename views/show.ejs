@@ -2,31 +2,59 @@
 
 
 <!-- make this col-9 col-3 eventually, col-3 -> the list of items -->
-<div id = "center_items_show">
-
-	<h2 class = "m-2"><%= list.name %></h2>
-
-	<h3 class = "m-2 text-secondary" style = "font-size: 1rem;">(by <strong><%= list.author.username%></strong>)</h3>
 
 
-	<div class = "thumbnail">
-		<img id = "occupy_div" class = "img-responsive" src = "<%= list.image%>" >
-		<div class = "caption-full">
-			<p class = "m-3"><%= list.description %></p>
+<div class = "container">
+
+	<div class = "row">
+		<div class="col-sm-6 col-md-6 col-lg-5 col-xl-5">
+		
+			<h2 class = "m-2"><%= list.name %></h2>
+
+			<h3 class = "m-3 text-secondary" style = "font-size: 1rem;">(by <strong><%= list.author.username%></strong>)</h3>
+
+
+			<div class = "thumbnail">
+				<img id = "occupy_div" class = "img-responsive" src = "<%= list.image%>" >
+				<div class = "caption-full">
+					<p class = "m-3"><%= list.description %></p>
+				</div>
+			</div>
+
+
 		</div>
+
+
+	    <div class="col-sm-6 col-md-6 col-lg-7 col-xl-7" >
+
+			<p onclick='<%= clickHandler %>'>Click Me</p>
+
+			<h2 class = "mt-2 mb-4">Items</h2>
+
+			<ul class = "list-group mt-5">
+				<li class = "list-group-item"><span></span> Go to Potions Class</li>
+				<li class = "list-group-item"><span></span> Buy New Robes</li>
+				<li class = "list-group-item"><span></span> Visit Hagrid</li>
+			</ul>
+
+			<% if (list.author.id.equals(currentUser._id)) {%>
+				<button class = "btn btn-link mb-4" ><a href = "/lists/<%= list._id %>/edit" style= "text-decoration: underline; color: #6ADB3A;">Edit</a></button>
+
+				<form style="display: inline;" action = "/lists/<%= list._id %>?_method=DELETE" method="POST">
+					<button class = "btn btn-link mb-4" style= "text-decoration: underline; color: #CB2530;">Delete</button>
+				</form>
+			<% } %>
+
+
+	    	<button class = "btn btn-link mb-4" ><a href = "/lists" style= "text-decoration: underline; color: black;">Go Back</a></button>
+
+	    </div>
+
 	</div>
 
 
-	<% if (list.author.id.equals(currentUser._id)) {%>
-		<button class = "btn btn-link mb-4" ><a href = "/lists/<%= list._id %>/edit" style= "text-decoration: underline; color: #6ADB3A;">Edit</a></button>
-
-		<form style="display: inline;" action = "/lists/<%= list._id %>?_method=DELETE" method="POST">
-			<button class = "btn btn-link mb-4" style= "text-decoration: underline; color: #CB2530;">Delete</button>
-		</form>
-	<% } %>
-	<button class = "btn btn-link mb-4" ><a href = "/lists" style= "text-decoration: underline; color: black;">Go Back</a></button>
-
-
 </div>
+
+
 
 <% include ./partials/footer %>
