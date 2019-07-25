@@ -1,0 +1,111 @@
+<% include ./partials/header %>
+
+    <div class="container">
+     	<h1>WishLists</h1>
+
+     	<% if (currentUser.isAdmin) {%>
+			<h3 class = "m-2 text-secondary" style = "font-size: 1rem;">(Admin)</h3>
+     	<% } %>
+
+		<button class = "btn btn-link mb-4" ><a href = "/lists/new" style= "text-decoration: underline; color: #43A4BC;" >Make a new list</a></button>
+
+	    <div class="row">
+	      <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2" style = "border: 1px solid rgba(0,0,0,.1);">
+<!-- 	        <ul>
+	          <li>6 column on small screens</li>
+	          <li>4 column on medium screen</li>
+	          <li>3 column on large screen</li>
+	          <li>2 column on xlarge screen</li>
+	        </ul> -->
+
+	       
+		  <img src="<%= userinfo[0].profilepic %>" alt="" class="img-thumbnail  rounded mx-auto mt-2 d-block">
+
+		  <h2 class = "text-center"><%= userinfo[0].username%></h2>
+
+		  <p class = "text-center"><%= userinfo[0].bio %></h2>
+
+		  <hr / >
+		  <button class = "btn btn-link mb-4 btn-block" ><a href = "/users/<%= userinfo[0]._id %>/edit" style= "text-decoration: underline; color: #43A4BC;" >Edit Profile</a></button>
+
+
+	      </div>
+
+
+	      <div class="col-sm-6 col-md-8 col-lg-9 col-xl-10" >
+	        
+<!-- 	        <p>  userlists </p>
+ -->	      
+
+
+
+ 			<section class = "py-3">
+
+ 				<div class = "container">
+
+
+ 					<% if (userlists.length == 0) {%>
+
+ 						<p>Looks like there's no lists here. Make one now!  </p>
+ 					<%} else {%>
+ 					<h1> Your Wishlists </h1>
+
+			        <div class="row">
+			          <div class="col">
+			            <div class="card-columns">
+
+							<% userlists.forEach(function(list){ %>
+
+					              <div class="card">
+
+					              	<a href = "/lists/<%=list._id %>" style= "color: black;">
+					                <img
+					                  src="<%= list.image%>"
+					                  alt=""
+					                  class="img-fluid card-img-top"
+					                />  
+					                </a>
+
+
+					                <div class="card-body">
+					                  <a href = "/lists/<%=list._id %>" style= "color: black;">
+					                
+						                  <h4 class="card-title">
+						                    <%= list.name %>
+						                  </h4>
+					                  </a>
+			<!-- 		                  <small class="text-muted">Written by jacob</small>
+					                  <hr />
+			 -->		              
+					                    
+					                  	<p class = "card-text float-left"><%= list.description %> </p>
+
+					                </div>
+
+
+						            </div>
+
+
+							<% })%> 
+					       
+					       </div>
+
+
+			              </div>
+			            </div>
+
+ 				</div>
+
+
+ 					<%} %>
+
+ 				
+ 			</section>
+
+
+		  </div>
+	    </div>
+
+   </div> 
+
+<% include ./partials/footer %>

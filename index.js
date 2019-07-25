@@ -18,11 +18,15 @@ hostname = '127.0.0.1',
 passport = require("passport"),
 LocalStrategy = require("passport-local"),
 middleware = require("./middleware");
-port = 3000
+port = 3000,
 app = express();
 
-
-
+var jsdom;
+try {
+  jsdom = require("jsdom/lib/old-api.js"); // jsdom >= 10.x
+} catch (e) {
+  jsdom = require("jsdom"); // jsdom <= 9.x
+}
 
 // necessary for mongodb, referencing CSS files
 app.set("view engine", "ejs");
@@ -76,11 +80,12 @@ app.use(function(req, res, next){
 loginRoutes = require("./routes/login");
 listRoutes = require("./routes/lists");
 userProfileRoutes = require("./routes/users");
-
+itemRoutes = require("./routes/items");
 
 app.use("/", loginRoutes);
 app.use("/", listRoutes);
 app.use("/", userProfileRoutes);
+app.use("/", itemRoutes);
 
 
 // for any invalid link

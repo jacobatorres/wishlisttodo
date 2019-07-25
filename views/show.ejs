@@ -27,11 +27,14 @@
 
 	    <div class="col-sm-6 col-md-6 col-lg-7 col-xl-7" >
 
-			<p onclick='<%= clickHandler %>'>Click Me</p>
 
 			<h2 class = "mt-2 mb-4">Items</h2>
 
+
+
 			<ul class = "list-group mt-5">
+
+				<input class="form-control list-group-item"  type = "text" name = "name" placeholder = "Add new Item">
 				<li class = "list-group-item"><span></span> Go to Potions Class</li>
 				<li class = "list-group-item"><span></span> Buy New Robes</li>
 				<li class = "list-group-item"><span></span> Visit Hagrid</li>
@@ -54,7 +57,47 @@
 
 
 </div>
+<!-- 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
+<script type="text/javascript" src="/js_file_for_show.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+
+<script type = "text/javascript">
+
+	$("input[type='text']").keypress(function(event){
+	// extract the value
+	// when hit enter, do something with the value
+	// clear the 
+		if (event.which === 13){
+			var newtodo = $(this).val();
+			$(this).val(""); // setter, not a getter!
+			// make a new li, append to ul  				<li class = "list-group-item"><span></span> Visit Hagrid</li>
+
+			$('ul[class = "list-group mt-5"]').append('<li class = "list-group-item"><span></span> ' + newtodo + '</li>');
+
+
+			var data = {name: "testttttt"};
+
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify(data),
+				contentType: 'application/json',
+				url: 'http://127.0.0.1:3000/lists/<%= list._id%>/items'
+			});
+			// $.post("/lists/<%= list._id%>/items", { name: "testyboasty"});
+
+		}
+
+
+
+
+	});
+
+
+
+</script>
 
 
 <% include ./partials/footer %>
