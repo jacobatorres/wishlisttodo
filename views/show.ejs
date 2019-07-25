@@ -78,7 +78,15 @@
 			$('ul[class = "list-group mt-5"]').append('<li class = "list-group-item"><span></span> ' + newtodo + '</li>');
 
 
-			var data = {name: "testttttt"};
+			var data = {
+
+				name: newtodo,
+				author: {
+					id: "<%= currentUser._id %>",
+					username: "<%= currentUser.username %>"
+				}
+			};
+
 
 			$.ajax({
 				type: 'POST',
@@ -86,7 +94,6 @@
 				contentType: 'application/json',
 				url: 'http://127.0.0.1:3000/lists/<%= list._id%>/items'
 			});
-			// $.post("/lists/<%= list._id%>/items", { name: "testyboasty"});
 
 		}
 
