@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
 var List = require("../models/list");
+var Item = require("../models/item");
 
 var middleware = require("../middleware");
 
@@ -141,8 +142,23 @@ router.get("/lists/:id", middleware.isLoggedIn, function(req, res){
 			return res.redirect("back");
 
 		} else {
+			
+			// get all the items relating to this list
+			Item.find({'list_origin.id': foundlist._id}, function(err, list_item){
 
-			res.render("show", {list: foundlist});
+				if (err){
+					console.log(err);
+				} else if (list_item.length == 0){
+					console.log("no items");
+					res.render("show", {list: foundlist, items: {}});
+				} else {
+					// also show all items where this is the user
+					console.log("some items");
+					res.render("show", {list: foundlist, items: list_item});
+
+				}
+			})
+
 
 		}
 	});

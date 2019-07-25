@@ -20,26 +20,6 @@
 					<p class = "m-3"><%= list.description %></p>
 				</div>
 			</div>
-
-
-		</div>
-
-
-	    <div class="col-sm-6 col-md-6 col-lg-7 col-xl-7" >
-
-
-			<h2 class = "mt-2 mb-4">Items</h2>
-
-
-
-			<ul class = "list-group mt-5">
-
-				<input class="form-control list-group-item"  type = "text" name = "name" placeholder = "Add new Item">
-				<li class = "list-group-item"><span></span> Go to Potions Class</li>
-				<li class = "list-group-item"><span></span> Buy New Robes</li>
-				<li class = "list-group-item"><span></span> Visit Hagrid</li>
-			</ul>
-
 			<% if (list.author.id.equals(currentUser._id)) {%>
 				<button class = "btn btn-link mb-4" ><a href = "/lists/<%= list._id %>/edit" style= "text-decoration: underline; color: #6ADB3A;">Edit</a></button>
 
@@ -50,6 +30,34 @@
 
 
 	    	<button class = "btn btn-link mb-4" ><a href = "/lists" style= "text-decoration: underline; color: black;">Go Back</a></button>
+
+
+		</div>
+
+
+	    <div class="col-sm-6 col-md-6 col-lg-7 col-xl-7" >
+
+
+
+			<h2 class = "mt-2 mb-4">Items</h2>
+
+			<ul class = "list-group mt-5">
+
+				<input class="form-control list-group-item mb-2"  type = "text" name = "name" placeholder = "Add new Item">
+
+
+
+				<% if (items.length > 0) { %>
+					<% items.forEach(function(item){ %>
+						<li class = "list-group-item">
+
+						    <%= item.name %> 
+						</li>
+					<% }) %>
+				<% } %>
+
+			</ul>
+
 
 	    </div>
 
@@ -65,6 +73,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 
 <script type = "text/javascript">
+	
+
+
 
 	$("input[type='text']").keypress(function(event){
 	// extract the value
@@ -75,7 +86,7 @@
 			$(this).val(""); // setter, not a getter!
 			// make a new li, append to ul  				<li class = "list-group-item"><span></span> Visit Hagrid</li>
 
-			$('ul[class = "list-group mt-5"]').append('<li class = "list-group-item"><span></span> ' + newtodo + '</li>');
+			$('ul[class = "list-group mt-5"]').append('<li class = "list-group-item"> ' + newtodo + '</li>');
 
 
 			var data = {
@@ -84,6 +95,10 @@
 				author: {
 					id: "<%= currentUser._id %>",
 					username: "<%= currentUser.username %>"
+				},
+
+				list_origin: {
+					id: "<%= list._id %>"
 				}
 			};
 

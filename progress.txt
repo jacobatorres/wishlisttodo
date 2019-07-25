@@ -114,6 +114,10 @@ next:
 
 
 - items look like a list
+
+- you cant see the add new list if its not yyours
+- you cant make a post request to add / delete item when its not yours
+
 - users can go do any list and reserve an item
 - users can add friends (friends system). only your friends can see your list and reserve
 - add date to it

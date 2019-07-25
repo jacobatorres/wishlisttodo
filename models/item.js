@@ -9,6 +9,13 @@ var itemSchema = new mongoose.Schema({
 			ref: "User"
 		}, 
 		username: String
+	},
+
+	list_origin: {
+		id: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "List"
+		}
 	}
 });
 
