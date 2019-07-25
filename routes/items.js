@@ -13,12 +13,10 @@ app.use(bodyParser.json());
 var middleware = require("../middleware");
 
 // when user hits Enter in show > Add new Item, this route will be used
-router.post("/lists/:list_id/items", function(req, res){
+router.post("/lists/:id/items", middleware.checkownership, function(req, res){
 
-	console.log("yeah baby");
 
 	var obj = {};
-	console.log('body: ' + JSON.stringify(req.body));
 
 	Item.create(req.body, function(err, list){
 
@@ -28,7 +26,7 @@ router.post("/lists/:list_id/items", function(req, res){
 		} 
 
 		// if successful, flash success and see show page
-		res.redirect('/lists/' + req.params.list_id);
+		res.redirect('/lists/' + req.params.id);
 
 
 
@@ -36,6 +34,37 @@ router.post("/lists/:list_id/items", function(req, res){
 
 
 });
+
+// when user hits Enter in show > Add new Item, this route will be used
+router.post("/lists/:id/itemsreserve/:item_id", function(req, res){
+
+
+	var obj = {};
+	console.log("going");
+	console.log(req.params.item_id);
+	console.log(req.body);
+	Item.findByIdAndUpdate(req.params.item_id, req.body, function(err, updateditem){
+
+		if (err){
+			console.log("error", "Error updating the item");
+			return res.redirect("back");
+		} 
+
+		console.log("SSUCC");
+
+		console.log(req.body);
+		console.log("ASJASDJASDJA");
+		console.log(updateditem);
+		// if successful, flash success and see show page
+
+
+
+	})
+
+
+});
+
+
 
 
 

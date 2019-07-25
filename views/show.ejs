@@ -41,18 +41,40 @@
 
 			<h2 class = "mt-2 mb-4">Items</h2>
 
-			<ul class = "list-group mt-5">
+			<ul class = "list-group my-5">
 
-				<input class="form-control list-group-item mb-2"  type = "text" name = "name" placeholder = "Add new Item">
-
-
+				<% if (list.author.id.equals(currentUser._id)) {%>
+					<input class="form-control list-group-item mb-2"  type = "text" name = "name" placeholder = "Add new Item">
+				<% } %>
 
 				<% if (items.length > 0) { %>
 					<% items.forEach(function(item){ %>
-						<li class = "list-group-item">
+						<li id = "can-be-reserved" class = "list-group-item">
 
-						    <%= item.name %> 
+						    <%= item.name %>
+
+
+
+						    <!-- if someone else already called dibs on it -->
+
+						    <% if (!item.author.id.equals(list.author.id)) { %>
+							    <small style = "display: inline;" class = "float-right">reserved by <%= item.author.username%>
+							    	
+							    	<% if (item.author.id.equals(currentUser._id)) {%>
+							    		(you)
+							    	<%}%>
+
+							    </small>
+
+						   	<%} else if (!item.author.id.equals(currentUser._id)) {%>
+								<span id = "<%= item._id%>" class = "float-right"><a href = "/lists/<%= list._id%>">Reserve</a></span>
+
+						   	<%}%>
+
 						</li>
+
+
+
 					<% }) %>
 				<% } %>
 
@@ -76,6 +98,37 @@
 	
 
 
+	$("ul").on("click", "span", function(event){
+		$(this).parent().addClass("completed");
+
+		// they hit reserve, so re upload picture
+		var newtodo =  $(this).val();
+		var id_of_item = this.id;
+		console.log($(this).parent()[0]);
+
+
+		var rawval = $(this).parent()[0]['innerText'].replace(/\s/g, "");
+		var rawval = rawval.substring(0, rawval.length - 7);
+		var reserved_data = {
+			name: rawval,
+			author: {
+				id: "<%= currentUser._id %>",
+				username: "<%= currentUser.username %>"
+			},
+			list_origin: {
+				id: "<%= list._id %>"
+			}
+		}
+
+
+		$.ajax({
+			type: 'POST',
+			data: JSON.stringify(reserved_data),
+			contentType: 'application/json',
+			url: 'http://127.0.0.1:3000/lists/<%= list._id%>/itemsreserve/' + id_of_item
+		});
+
+	});
 
 	$("input[type='text']").keypress(function(event){
 	// extract the value
@@ -86,7 +139,7 @@
 			$(this).val(""); // setter, not a getter!
 			// make a new li, append to ul  				<li class = "list-group-item"><span></span> Visit Hagrid</li>
 
-			$('ul[class = "list-group mt-5"]').append('<li class = "list-group-item"> ' + newtodo + '</li>');
+			$('ul[class = "list-group my-5"]').append('<li class = "list-group-item"> ' + newtodo + '</li>');
 
 
 			var data = {
