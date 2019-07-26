@@ -31,7 +31,14 @@ try {
 // necessary for mongodb, referencing CSS files
 app.set("view engine", "ejs");
 app.use(bodyparser.urlencoded({extended: true}));
-mongoose.connect('mongodb://localhost:27017/wishlist_appv4', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://yelpcamp:sOxDnj88nH5DmsNY@cluster0-hqj8a.mongodb.net/test?retryWrites=true&w=majority', {
+  useNewUrlParser: true,
+  useCreateIndex: true
+}).then(() => {
+  console.log("connected to DB");
+}).catch(err => {
+  console.log('ERROR:', err.message);
+});
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 
