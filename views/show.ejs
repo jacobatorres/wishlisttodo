@@ -124,7 +124,7 @@
 			type: 'POST',
 			data: JSON.stringify(reserved_data),
 			contentType: 'application/json',
-			url: 'http://127.0.0.1:3000/lists/<%= list._id%>/itemsreserve/' + id_of_item
+			url: 'https://ancient-crag-64403.herokuapp.com/lists/<%= list._id%>/itemsreserve/' + id_of_item
 		});
 
 	});
@@ -159,7 +159,7 @@
 				type: 'POST',
 				data: JSON.stringify(data),
 				contentType: 'application/json',
-				url: 'http://127.0.0.1:3000/lists/<%= list._id%>/items'
+				url: 'https://ancient-crag-64403.herokuapp.com/lists/<%= list._id%>/items'
 			});
 
 		}
