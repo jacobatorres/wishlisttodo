@@ -21,6 +21,7 @@ middleware = require("./middleware");
 port = 3000,
 app = express();
 
+
 var jsdom;
 try {
   jsdom = require("jsdom/lib/old-api.js"); // jsdom >= 10.x
@@ -30,6 +31,9 @@ try {
 
 // necessary for mongodb, referencing CSS files
 app.set("view engine", "ejs");
+
+app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 app.use(bodyparser.urlencoded({extended: true}));
 mongoose.connect('mongodb+srv://yelpcamp:sOxDnj88nH5DmsNY@cluster0-hqj8a.mongodb.net/test?retryWrites=true&w=majority', {
   useNewUrlParser: true,
@@ -39,8 +43,7 @@ mongoose.connect('mongodb+srv://yelpcamp:sOxDnj88nH5DmsNY@cluster0-hqj8a.mongodb
 }).catch(err => {
   console.log('ERROR:', err.message);
 });
-app.use(express.static(__dirname + "/public"));
-app.use(methodOverride("_method"));
+
 
 
 // // session for logging in
@@ -103,6 +106,6 @@ app.get("/*", function(req, res){
 
 
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(process.env.PORT || 5000, process.env.IP, function(){
 	console.log("app listening...");
 });
