@@ -123,6 +123,4 @@ next:
 - add date to it
 - (google maps?? hmmm)
 - users are reminded of an event
-- users are reminded of things they have reserved...
-
-
+- users are reminded of things they have reserved..

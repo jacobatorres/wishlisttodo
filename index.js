@@ -35,7 +35,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(bodyparser.urlencoded({extended: true}));
-mongoose.connect('mongodb+srv://yelpcamp:sOxDnj88nH5DmsNY@cluster0-hqj8a.mongodb.net/test?retryWrites=true&w=majority', {
+mongoose.connect(process.env.DATABASEURL, {
   useNewUrlParser: true,
   useCreateIndex: true
 }).then(() => {
@@ -43,8 +43,6 @@ mongoose.connect('mongodb+srv://yelpcamp:sOxDnj88nH5DmsNY@cluster0-hqj8a.mongodb
 }).catch(err => {
   console.log('ERROR:', err.message);
 });
-
-
 
 // // session for logging in
 // // might also be needed for middleware?
@@ -106,6 +104,6 @@ app.get("/*", function(req, res){
 
 
 
-app.listen(process.env.PORT || 5000, process.env.IP, function(){
+app.listen(process.env.PORT || port, process.env.IP || hostname, function(){
 	console.log("app listening...");
 });
