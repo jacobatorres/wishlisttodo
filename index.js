@@ -104,6 +104,6 @@ app.get("/*", function(req, res){
 
 
 
-app.listen(process.env.PORT || port, process.env.IP || hostname, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
 	console.log("app listening...");
 });
