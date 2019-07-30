@@ -57,6 +57,7 @@ app.use(cookieParser('secret'));
 app.use(session({cookie: {maxAge: 60000}}));
 app.use(flash());
 
+// mongoose.connect('mongodb://localhost:27017/wishlist_appv4', {useNewUrlParser: true});
 
 app.use(function (req, res, next) {
   // flash a message

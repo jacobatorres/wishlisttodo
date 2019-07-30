@@ -20,6 +20,8 @@
 					<p class = "m-3"><%= list.description %></p>
 				</div>
 			</div>
+
+			<div id="map"></div>
 			<% if (list.author.id.equals(currentUser._id)) {%>
 				<button class = "btn btn-link mb-4" ><a href = "/lists/<%= list._id %>/edit" style= "text-decoration: underline; color: #6ADB3A;">Edit</a></button>
 
@@ -124,7 +126,7 @@
 			type: 'POST',
 			data: JSON.stringify(reserved_data),
 			contentType: 'application/json',
-			url: 'https://ancient-crag-64403.herokuapp.com/lists/<%= list._id%>/itemsreserve/' + id_of_item
+			url: 'http://127.0.0.1:3000/lists/<%= list._id%>/itemsreserve/' + id_of_item
 		});
 
 	});
@@ -159,7 +161,7 @@
 				type: 'POST',
 				data: JSON.stringify(data),
 				contentType: 'application/json',
-				url: 'https://ancient-crag-64403.herokuapp.com/lists/<%= list._id%>/items'
+				url: 'http://127.0.0.1:3000/lists/<%= list._id%>/items'
 			});
 
 		}
@@ -173,5 +175,30 @@
 
 </script>
 
+
+<script>
+  function initMap() {
+    var  lat = 34.073578;
+    var  lng  = -118.373337;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: center,
+        scrollwheel: false
+    });
+    var contentString = `you go down smoothhhh`
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBks1FlVmsCRSbvN9NpEZUUatY2geX9x3E&callback=initMap"></script>
 
 <% include ./partials/footer %>

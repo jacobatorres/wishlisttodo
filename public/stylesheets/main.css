@@ -74,3 +74,8 @@ span {
   color: gray;
   text-decoration: line-through;
 }
+
+#map {
+   height: 400px;
+   width: 100%;
+}
