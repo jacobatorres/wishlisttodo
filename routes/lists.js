@@ -4,10 +4,21 @@ var passport = require("passport");
 var User = require("../models/user");
 var List = require("../models/list");
 var Item = require("../models/item");
+var NodeGeocoder = require('node-geocoder');
 
 var middleware = require("../middleware");
 
 
+// for geocoding the values for Google maps
+
+var options = {
+  provider: 'google',
+  httpAdapter: 'https',
+  apiKey: process.env.GEOCODER_API_KEY,
+  formatter: null
+};
+ 
+var geocoder = NodeGeocoder(options);
 // needed for image upload
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -76,40 +87,63 @@ router.post("/", upload.single('image'), middleware.isLoggedIn, function(req, re
 		name: req.body.name, 
 		description: req.body.description
 
+
 	};
 
 
-	cloudinary.v2.uploader.upload(req.file.path, function(err, result){
 
-		if (err){
-			console.log("error at uploading image part...");
-			req.flash("error", "Error in uploading image");
+	geocoder.geocode(req.body.location, function(err,data){
+
+		if (err || !data.length){
+			req.flash("error", "Invalid address");
 			return res.redirect("back");
 		}
 
-		// add in user reference later on... 
-		// req.body.campground.author = {
-		// id: req.user._id,
-		// username: req.user.username
-		// }
+		// successful geocoding, get lat and lng
+		var lat = data[0].latitude;
+		var lng = data[0].longitude;
+		var location = data[0].formattedAddress;
 
-		// the new image link in the db
-		// secure url is literally a URL, it's a pointer to a storage in cloudinary
-		list_to_add.image = result.secure_url;
-		list_to_add.imageId = result.public_id;
-		list_to_add.author = author_of_list;
+		list_to_add.lat = lat;
+		list_to_add.lng = lng;
+		list_to_add.location = location;
 
 
-		List.create(list_to_add, function(err, list){
+		cloudinary.v2.uploader.upload(req.file.path, function(err, result){
 
 			if (err){
-				console.log("error", "Error creating the list");
+				console.log("error at uploading image part...");
+				req.flash("error", "Error in uploading image");
 				return res.redirect("back");
-			} 
+			}
 
-			// if successful, flash success and see show page
-			req.flash("success", "List successfully created!");
-			res.redirect('/lists/' + list.id);
+			// add in user reference later on... 
+			// req.body.campground.author = {
+			// id: req.user._id,
+			// username: req.user.username
+			// }
+
+			// the new image link in the db
+			// secure url is literally a URL, it's a pointer to a storage in cloudinary
+			list_to_add.image = result.secure_url;
+			list_to_add.imageId = result.public_id;
+			list_to_add.author = author_of_list;
+
+
+			List.create(list_to_add, function(err, list){
+
+				if (err){
+					console.log("error", "Error creating the list");
+					return res.redirect("back");
+				} 
+
+				// if successful, flash success and see show page
+				req.flash("success", "List successfully created!");
+				res.redirect('/lists/' + list.id);
+
+
+
+			})
 
 
 
@@ -117,17 +151,9 @@ router.post("/", upload.single('image'), middleware.isLoggedIn, function(req, re
 
 
 
-	})
+	});
 
 
-	// List.create(list_to_add, function(err, newlist){
-	// 	if(err){
-	// 		console.log("err");
-	// 	} else {
-	// 		// successfully added list! go back to index
-	// 		res.redirect("/lists")
-	// 	}
-	// });
 
 });
 
@@ -195,6 +221,22 @@ router.put("/lists/:id", upload.single('image'), middleware.checkownership, func
 			return res.redirect("back");
 
 		} else {
+
+
+			// update the parts for Google maps
+			geocoder.geocode(req.body.location, function(err, data){
+
+				if (err || !data.length){
+					req.flash("error", "Invalid Address");
+					return res.redirect("back");
+				}
+
+
+				list.lat = data[0].latitude;
+				list.lng = data[0].longitude;
+				list.location = data[0].formattedAddress;
+
+			});
 
 			// if someone uploaded a file (middleware), then do this
 			if (req.file){

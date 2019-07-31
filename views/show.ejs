@@ -20,8 +20,6 @@
 					<p class = "m-3"><%= list.description %></p>
 				</div>
 			</div>
-
-			<div id="map"></div>
 			<% if (list.author.id.equals(currentUser._id)) {%>
 				<button class = "btn btn-link mb-4" ><a href = "/lists/<%= list._id %>/edit" style= "text-decoration: underline; color: #6ADB3A;">Edit</a></button>
 
@@ -32,6 +30,8 @@
 
 
 	    	<button class = "btn btn-link mb-4" ><a href = "/lists" style= "text-decoration: underline; color: black;">Go Back</a></button>
+
+			<div id="map"></div>
 
 
 		</div>
@@ -185,15 +185,15 @@
 <!-- sample comment test -->
 <script>
   function initMap() {
-    var  lat = 34.073578;
-    var  lng  = -118.373337;
+    var  lat = <%= list.lat%>;
+    var  lng  = <%= list.lng%>;
     var center = {lat: lat, lng: lng };
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 8,
+        zoom: 15,
         center: center,
         scrollwheel: false
     });
-    var contentString = `you go down smoothhhh`
+    var contentString = `<p><%= list.location%></p>`;
     var infowindow = new google.maps.InfoWindow({
       content: contentString
     });

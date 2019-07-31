@@ -18,8 +18,9 @@ hostname = '127.0.0.1',
 passport = require("passport"),
 LocalStrategy = require("passport-local"),
 middleware = require("./middleware");
-port = 3000,
+
 app = express();
+
 
 
 var jsdom;

@@ -14,7 +14,13 @@ var listSchema = new mongoose.Schema({
 			ref: "User"
 		}, 
 		username: String
-	}
+	},
+
+	location: String,
+	lat: Number,
+	lng: Number
+
+
 });
 
 // compile to a model
