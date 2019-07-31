@@ -150,6 +150,7 @@
 			var url_for_prod = 'https://ancient-crag-64403.herokuapp.com/' + 'lists/<%= list._id%>/items';
 			var url_for_deployment = ('<%= process.env.DATABASEURL %>' == 'mongodb://localhost:27017/wishlist_appv4') ? url_for_local : url_for_prod
 
+
 			var data = {
 
 				name: newtodo,
@@ -181,5 +182,30 @@
 
 </script>
 
+<!-- sample comment test -->
+<script>
+  function initMap() {
+    var  lat = 34.073578;
+    var  lng  = -118.373337;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: center,
+        scrollwheel: false
+    });
+    var contentString = `you go down smoothhhh`
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBks1FlVmsCRSbvN9NpEZUUatY2geX9x3E&callback=initMap"></script>
 
 <% include ./partials/footer %>
