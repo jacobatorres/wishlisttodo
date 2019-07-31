@@ -102,11 +102,15 @@
 	$("ul").on("click", "span", function(event){
 		$(this).parent().addClass("completed");
 
-		// they hit reserve, so re upload picture
+
+
 		var newtodo =  $(this).val();
 		var id_of_item = this.id;
-		console.log($(this).parent()[0]);
 
+		// determine url depending on local / staging
+		var url_for_local = 'http://' + '<%= process.env.IP %>' + ':' + '<%= process.env.PORT %>/' + 'lists/<%= list._id%>/itemsreserve/' + id_of_item;
+		var url_for_prod = 'https://ancient-crag-64403.herokuapp.com/' + 'lists/<%= list._id%>/itemsreserve/' + id_of_item;
+		var url_for_deployment = ('<%= process.env.DATABASEURL %>' == 'mongodb://localhost:27017/wishlist_appv4') ? url_for_local : url_for_prod;
 
 		var rawval = $(this).parent()[0]['innerText'].replace(/\s/g, "");
 		var rawval = rawval.substring(0, rawval.length - 7);
@@ -126,7 +130,7 @@
 			type: 'POST',
 			data: JSON.stringify(reserved_data),
 			contentType: 'application/json',
-			url: 'http://127.0.0.1:3000/lists/<%= list._id%>/itemsreserve/' + id_of_item
+			url: url_for_deployment
 		});
 
 	});
@@ -142,6 +146,12 @@
 
 			$('ul[class = "list-group my-5"]').append('<li class = "list-group-item"> ' + newtodo + '</li>');
 
+			var url_for_local = 'http://' + '<%= process.env.IP %>' + ':' + '<%= process.env.PORT %>/' + 'lists/<%= list._id%>/items';
+			var url_for_prod = 'https://ancient-crag-64403.herokuapp.com/' + 'lists/<%= list._id%>/items';
+			var url_for_deployment = ('<%= process.env.DATABASEURL %>' == 'mongodb://localhost:27017/wishlist_appv4') ? url_for_local : url_for_prod
+
+
+			debugger;
 
 			var data = {
 
@@ -161,11 +171,10 @@
 				type: 'POST',
 				data: JSON.stringify(data),
 				contentType: 'application/json',
-				url: 'http://127.0.0.1:3000/lists/<%= list._id%>/items'
+				url: url_for_deployment
 			});
 
 		}
-
 
 
 

@@ -124,3 +124,16 @@ next:
 - (google maps?? hmmm)
 - users are reminded of an event
 - users are reminded of things they have reserved..
+
+
+
+- google maps (add, edit)
+- fuzy search / some search way for users...
+- add date to list model
+- show your reserved list (and their dates)
+- notifications (essentially when a thing is nearby, notify user)
+- walkthrough
+
+
+
+
