@@ -150,9 +150,6 @@
 			var url_for_prod = 'https://ancient-crag-64403.herokuapp.com/' + 'lists/<%= list._id%>/items';
 			var url_for_deployment = ('<%= process.env.DATABASEURL %>' == 'mongodb://localhost:27017/wishlist_appv4') ? url_for_local : url_for_prod
 
-
-			debugger;
-
 			var data = {
 
 				name: newtodo,
