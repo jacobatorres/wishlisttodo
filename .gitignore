@@ -1,2 +1,5 @@
 # all the envs
 .env
+
+# keep progress to myself
+progress.txt
