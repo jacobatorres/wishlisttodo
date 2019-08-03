@@ -1,0 +1,85 @@
+<% include ./partials/header %>
+
+    		
+    	<h1>Search Users</h1>
+        <div>
+        <input class="form-control" id = "search-results" onkeyup="showResults(this.value)" type="text" placeholder="Search" aria-label="Search">
+        </div>
+        <ul class = "list-group" id = "search-items-results"></ul>
+
+
+	<script type="text/javascript">
+
+	var showResults =  debounce(function (arg) {
+		var value = arg.trim();
+
+		$("#search-result-to-fade").each(function(i){
+			$(this).remove();
+		})
+
+		if (value == "" || value.length <= 0) {
+
+			return;
+
+
+		} 
+		// this will make the get request to /search... 
+		// 
+		var url_for_local = 'http://' + '<%= process.env.IP %>' + ':' + '<%= process.env.PORT %>/search?q=';
+		var url_for_prod = 'https://ancient-crag-64403.herokuapp.com/search?q=';
+		var url_for_deployment = ('<%= process.env.DATABASEURL %>' == 'mongodb://localhost:27017/wishlist_appv4') ? url_for_local : url_for_prod
+
+		console.log(url_for_deployment + value);
+		var jqx = $.get(url_for_deployment + value, function(data){
+				$("#search-result-to-fade").each(function(i){
+					$(this).remove();
+				})
+
+			$("#search-results").html("");
+		})
+		.done(function(data) {
+
+			if (data.length === 0){
+				$("#search-items-results").append('<li class = "list-group-item" id="search-result-to-fade">No results</li>');
+			} else {
+
+				for (var i = 0; i < data.length; i++){
+					$("#search-items-results").append('<a href = "/users/' + data[i]._id + '"><li class = "list-group-item" id = "search-result-to-fade"><img src="' + data[i].profilepic + '" class = "img-thumbnail" height = "40" width = "40" />' + '  ' + data[i].username +  '</li></a>');
+
+				}
+
+
+			}
+		})
+		.fail(function (err){
+			console.log(err);
+		})
+
+	}, 200);
+
+
+	function debounce(func, wait, immediate){
+		var timeout;
+		return function(){
+			var context = this,
+			args = arguments;
+			var later = function(){
+				timeout = null;
+				if (!immediate) func.apply(context, args);
+			};
+
+			var callNow = immediate && !timeout;
+			clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+			if (callNow) func.apply(context, args);
+
+			$("#search-result-to-fade").each(function(i){
+				$(this).remove();
+			})
+
+		};
+	};
+
+	</script>
+
+<% include ./partials/footer %>
