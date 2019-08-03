@@ -33,15 +33,14 @@ router.post("/signup", function(req, res){
 	User.register(newUser, req.body.password, function(err, user){
 
 		if (err){
+			console.log("im here");
 			console.log(err);
 			req.flash("error", err.message);
-			return res.redirect("/errordefault");
+			return res.redirect("/lists");
 		} else {
 
 			// successfully logged in
 			passport.authenticate("local")(req, res, function(){
-
-				debugger;
 
 				req.flash("success", "Welcome to the app, " + newUser.username + "!");
 				res.redirect("/lists");

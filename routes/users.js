@@ -100,14 +100,12 @@ router.put("/users/:id", upload.single('profilepic'),  function(req, res){
 			// this will always satisfy because of the middleware
 			if (req.file){
 
-				debugger;
 
 				// if user already uploaded something as a profile pic, delete that first
 				if (founduser.profilepic.indexOf("source.unsplash.com") == -1){
 					cloudinary.v2.uploader.destroy(founduser.imageId, function(result) {console.log("Deleted current picture.")} );
 
 				}
-				debugger;
 
 				// upload pic
 				cloudinary.v2.uploader.upload(req.file.path, function(err, result){
@@ -121,7 +119,6 @@ router.put("/users/:id", upload.single('profilepic'),  function(req, res){
 					founduser.profilepic = result.secure_url;
 
 					founduser.bio = req.body.bio;
-					debugger;
 
 					founduser.save();
 
@@ -144,6 +141,31 @@ router.put("/users/:id", upload.single('profilepic'),  function(req, res){
 
 
 	});
+
+
+});
+
+
+router.get("/searchusers", middleware.isLoggedIn, function(req, res){
+
+	res.render("searchusers");
+
+})
+
+router.get("/search", function(req, res, next){
+
+	console.log("entered the right place");
+	console.log(req.query.q);
+
+	User.find({
+		username: {
+			$regex: new RegExp(req.query.q, 'i')
+		}
+	}, function (err, data){
+		console.log(data);
+		res.json(data);
+	}).limit(3);
+
 
 
 });
