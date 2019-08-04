@@ -22,8 +22,8 @@ middlewareobject.checkownership = function(req, res, next){
 
 			console.log(foundlist.author);
 
-			// does he own the list?
-			if(foundlist.author.id.equals(req.user._id)){
+			// if the current user owns the list, or user is an admin, they can see this list
+			if(foundlist.author.id.equals(req.user._id) || req.user.isAdmin){
 
 				next();
 			} else {

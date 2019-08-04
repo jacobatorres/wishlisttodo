@@ -20,7 +20,7 @@
 					<p class = "m-3"><%= list.description %></p>
 				</div>
 			</div>
-			<% if (list.author.id.equals(currentUser._id)) {%>
+			<% if (list.author.id.equals(currentUser._id) || currentUser.isAdmin) {%>
 				<button class = "btn btn-link mb-4" ><a href = "/lists/<%= list._id %>/edit" style= "text-decoration: underline; color: #6ADB3A;">Edit</a></button>
 
 				<form style="display: inline;" action = "/lists/<%= list._id %>?_method=DELETE" method="POST">
