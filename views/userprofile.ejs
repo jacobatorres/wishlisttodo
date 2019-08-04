@@ -24,13 +24,13 @@
 		  <h2 class = "text-center"><%= userinfo[0].username%></h2>
 
 		  <p class = "text-center"><%= userinfo[0].bio %></h2>
-
 		  <hr / >
-		  <button class = "btn btn-link mb-4 btn-block" ><a href = "/users/<%= userinfo[0]._id %>/edit" style= "text-decoration: underline; color: #43A4BC;" >Edit Profile</a></button>
 
+		  <% if (userinfo[0]._id.equals(currentUser._id)) { %>
+			  <button class = "btn btn-link mb-4 btn-block" ><a href = "/users/<%= userinfo[0]._id %>/edit" style= "text-decoration: underline; color: #43A4BC;" >Edit Profile</a></button>
+	      <% }%>
 
-	      </div>
-
+		   </div>
 
 	      <div class="col-sm-6 col-md-8 col-lg-9 col-xl-10" >
 	        

@@ -57,20 +57,20 @@
 
 
 
-						    <!-- if someone else already called dibs on it -->
-						    <% if (!item.author.id.equals(list.author.id)) { %>
+						    <!-- if someone else already called reserved it -->
+						    <% if (!(item.reserved_by == "")) { %>
 							    <small style = "display: inline;" class = "float-right">reserved by <%= item.author.username%>
 							    	
-							    	<% if (item.author.id.equals(currentUser._id)) {%>
+							    	<% if (item.reserved_by == currentUser.username) {%>
 							    		(you)
 							    	<%}%>
 
 							    </small>
 
-						   	<%} else if (!item.author.id.equals(currentUser._id)) {%>
-								<span id = "<%= item._id%>" class = "float-right"><a href = "/lists/<%= list._id%>">Reserve</a></span>
+						   	<%} else {%>
+							   	<span id = "<%= item._id%>" class = "float-right"><a href = "/lists/<%= list._id%>">Reserve</a></span>
+						   	<% }%>
 
-						   	<%}%>
 
 						</li>
 
@@ -121,7 +121,8 @@
 			},
 			list_origin: {
 				id: "<%= list._id %>"
-			}
+			},
+			reserved_by:  "<%= currentUser.username %>"
 		}
 
 
@@ -160,7 +161,9 @@
 
 				list_origin: {
 					id: "<%= list._id %>"
-				}
+				},
+
+				reserved_by: ''
 			};
 
 

@@ -16,7 +16,10 @@ var itemSchema = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "List"
 		}
-	}
+	},
+
+	reserved_by: {type: String, default: ''}
+	
 });
 
 module.exports = mongoose.model("Item", itemSchema);
