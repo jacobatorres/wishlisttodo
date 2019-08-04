@@ -100,7 +100,6 @@
 
 
 	$("ul").on("click", "span", function(event){
-		$(this).parent().addClass("completed");
 
 
 
@@ -112,8 +111,8 @@
 		var url_for_prod = 'https://ancient-crag-64403.herokuapp.com/' + 'lists/<%= list._id%>/itemsreserve/' + id_of_item;
 		var url_for_deployment = ('<%= process.env.DATABASEURL %>' == 'mongodb://localhost:27017/wishlist_appv4') ? url_for_local : url_for_prod;
 
-		var rawval = $(this).parent()[0]['innerText'].replace(/\s/g, "");
-		var rawval = rawval.substring(0, rawval.length - 7);
+		var rawval = $(this).parent()[0]['innerText'].trim();
+		var rawval = rawval.substring(0, rawval.length - 8);
 		var reserved_data = {
 			name: rawval,
 			author: {
