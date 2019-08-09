@@ -47,6 +47,27 @@ cloudinary.config({
 
 
 
+	// User.find({_id: req.params.usernameid}, function(err, user){
+
+	// 	if (err){
+	// 		console.log(err);
+	// 	} else {
+
+	// 		List.find({'author.id': req.params.usernameid}, function(err, userlists){
+
+	// 			if (err){
+	// 				console.log(err);
+	// 			} else {
+	// 				res.render("userprofile", {userlists: userlists, userinfo: user});
+	// 			}
+
+
+	// 		})
+
+	// 	}
+	// });
+
+
 // index route
 router.get("/lists", function(req, res){
 
@@ -56,6 +77,11 @@ router.get("/lists", function(req, res){
 			req.flash("error", "There was an error fetching the lists.");
 			return res.redirect("back");
 		} else {
+
+
+			// Item.find({})
+
+
 			res.render("index", {lists:all_lists});
 		}
 	});

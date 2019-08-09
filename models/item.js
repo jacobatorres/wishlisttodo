@@ -18,7 +18,15 @@ var itemSchema = new mongoose.Schema({
 		}
 	},
 
-	reserved_by: {type: String, default: ''}
+	reserved_by: {
+		id: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "User"
+		},
+		username: String
+	},
+
+	event_date: String
 	
 });
 

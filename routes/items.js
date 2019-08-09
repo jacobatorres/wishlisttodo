@@ -18,10 +18,15 @@ router.post("/lists/:id/items", middleware.checkownership, function(req, res){
 
 	var obj = {};
 
+	console.log("BAN");
+
+	console.log(req.body);
+
 	Item.create(req.body, function(err, list){
 
 		if (err){
-			console.log("error", "Error creating the list");
+			console.log("error", "Error creating the ITEM");
+			console.log(err);
 			return res.redirect("back");
 		} 
 

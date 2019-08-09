@@ -57,10 +57,10 @@
 
 
 						    <!-- if someone else already called reserved it -->
-						    <% if (!(item.reserved_by == "")) { %>
-							    <small style = "display: inline;" class = "float-right">reserved by <%= item.author.username%>
+						    <% if (item.reserved) { %>
+							    <small style = "display: inline;" class = "float-right">reserved by <%= item.reserved_by.username%>
 							    	
-							    	<% if (item.reserved_by == currentUser.username) {%>
+							    	<% if (item.reserved_by.id.equals(currentUser._id)) {%>
 							    		(you)
 							    	<%}%>
 
@@ -108,20 +108,30 @@
 		// determine url depending on local / staging
 		var url_for_local = 'http://' + '<%= process.env.IP %>' + ':' + '<%= process.env.PORT %>/' + 'lists/<%= list._id%>/itemsreserve/' + id_of_item;
 		var url_for_prod = 'https://ancient-crag-64403.herokuapp.com/' + 'lists/<%= list._id%>/itemsreserve/' + id_of_item;
-		var url_for_deployment = ('<%= process.env.DATABASEURL %>' == 'mongodb://localhost:27017/wishlist_appv4') ? url_for_local : url_for_prod;
+		var url_for_deployment = ('<%= process.env.DATABASEURL %>' == 'mongodb://localhost:27017/wishlist_appv5') ? url_for_local : url_for_prod;
 
 		var rawval = $(this).parent()[0]['innerText'].trim();
 		var rawval = rawval.substring(0, rawval.length - 8);
 		var reserved_data = {
 			name: rawval,
+			reserved: true,
+
+			// so, this is how the item.author.username / id works
+			// initially, author.username / id is the creator of the list and item (they are the same)
+			// after, it will be the first person who reserves it
 			author: {
-				id: "<%= currentUser._id %>",
+				id: "<%= currentUser._id %>", 
 				username: "<%= currentUser.username %>"
 			},
 			list_origin: {
 				id: "<%= list._id %>"
 			},
-			reserved_by:  "<%= currentUser.username %>"
+			reserved_by:  {
+				id: "<%= currentUser._id %>",
+				username: "<%= currentUser.username %>"
+			},
+
+			event_date: "<%= list.event_date %>"
 		}
 
 
@@ -147,12 +157,13 @@
 
 			var url_for_local = 'http://' + '<%= process.env.IP %>' + ':' + '<%= process.env.PORT %>/' + 'lists/<%= list._id%>/items';
 			var url_for_prod = 'https://ancient-crag-64403.herokuapp.com/' + 'lists/<%= list._id%>/items';
-			var url_for_deployment = ('<%= process.env.DATABASEURL %>' == 'mongodb://localhost:27017/wishlist_appv4') ? url_for_local : url_for_prod
+			var url_for_deployment = ('<%= process.env.DATABASEURL %>' == 'mongodb://localhost:27017/wishlist_appv5') ? url_for_local : url_for_prod
 
 
 			var data = {
 
 				name: newtodo,
+				reserved: false,
 				author: {
 					id: "<%= currentUser._id %>",
 					username: "<%= currentUser.username %>"
@@ -162,10 +173,15 @@
 					id: "<%= list._id %>"
 				},
 
-				reserved_by: ''
+				reserved_by: {
+					id: "<%= currentUser._id %>",
+					username: "<%= currentUser.username %>"
+				},
+
+				event_date: "<%= list.event_date %>"
 			};
 
-
+			console.log(data);
 			$.ajax({
 				type: 'POST',
 				data: JSON.stringify(data),
