@@ -79,10 +79,24 @@ router.get("/lists", function(req, res){
 		} else {
 
 
-			// Item.find({})
+			if (req.isAuthenticated()){
+				Item.find({'reserved': true, 'reserved_by.id': req.user._id}, function(err, usersitems){
+
+					if (err){
+						console.log(err);
+					} else {
+						res.render("index", {lists:all_lists, usersitems: usersitems});
+
+					}
+				})
 
 
-			res.render("index", {lists:all_lists});
+
+			} else {
+				res.render("index", {lists:all_lists});
+
+			}
+
 		}
 	});
 
@@ -325,6 +339,8 @@ router.delete("/lists/:id", middleware.checkownership, function(req, res){
 			req.flash("error", "Error deleting image...");
 			return res.redirect("back");
 		} else {
+
+			
 			// deleted successfully
 			res.redirect("/lists");
 		}

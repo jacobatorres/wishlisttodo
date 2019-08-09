@@ -15,7 +15,8 @@ var itemSchema = new mongoose.Schema({
 		id: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "List"
-		}
+		},
+		name: String
 	},
 
 	reserved_by: {

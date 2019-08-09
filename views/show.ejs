@@ -124,7 +124,8 @@
 				username: "<%= currentUser.username %>"
 			},
 			list_origin: {
-				id: "<%= list._id %>"
+				id: "<%= list._id %>",
+				name: "<%= list.name %>"
 			},
 			reserved_by:  {
 				id: "<%= currentUser._id %>",
@@ -170,7 +171,8 @@
 				},
 
 				list_origin: {
-					id: "<%= list._id %>"
+					id: "<%= list._id %>",
+					name: "<%= list.name %>"
 				},
 
 				reserved_by: {

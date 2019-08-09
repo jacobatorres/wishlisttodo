@@ -7,12 +7,23 @@
       <div class="container">
 
 
-      	<!-- put your reserved lists here ... -->
+      	<!-- if someone is logged in, show their reserved items -->
 
-      	<h1> Reserved Items </h1>
+      	<% if (currentUser) {%> 
+      		<h1> Reserved Items </h1>
+      		<ul class = "list-group">
+      			<% usersitems.forEach(function(item){ %>
+      				<li class = "list-group-item"> 
+      					<strong><%= item.event_date%><br/></strong>
+      					<%= item.list_origin.name%> at <%= item.author.username %><br/><br/>
+      					Reminder: <%= item.name%>		
+      				</li>
+      				<br / >
+      			<%})%>
+      		</ul>
+      	<%}%>
 
 
-      	
 
       	<h1>All WishLists</h1>
 
