@@ -119,10 +119,7 @@
 			// so, this is how the item.author.username / id works
 			// initially, author.username / id is the creator of the list and item (they are the same)
 			// after, it will be the first person who reserves it
-			author: {
-				id: "<%= currentUser._id %>", 
-				username: "<%= currentUser.username %>"
-			},
+
 			list_origin: {
 				id: "<%= list._id %>",
 				name: "<%= list.name %>"

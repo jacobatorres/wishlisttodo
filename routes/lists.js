@@ -334,15 +334,29 @@ router.put("/lists/:id", upload.single('image'), middleware.checkownership, func
 router.delete("/lists/:id", middleware.checkownership, function(req, res){
 
 	List.findByIdAndRemove(req.params.id, function(err){
+
 		if (err){
 			console.log(err);
 			req.flash("error", "Error deleting image...");
 			return res.redirect("back");
 		} else {
 
-			
-			// deleted successfully
-			res.redirect("/lists");
+			// also remove attached items
+			Item.deleteMany({'list_origin.id': req.params.id}, function(err){
+				if (err){
+					console.log(err);
+					return res.redirect("back");
+
+				} else {
+
+
+					// deleted list and corresponding items successfully
+					res.redirect("/lists");
+
+
+
+				}
+			})
 		}
 	})
 
