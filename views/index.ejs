@@ -10,13 +10,13 @@
       	<!-- if someone is logged in, show their reserved items -->
 
       	<% if (currentUser) {%> 
-      		<h1> Reserved Items </h1>
+      		<h1> Reminders </h1>
       		<ul class = "list-group">
       			<% usersitems.forEach(function(item){ %>
       				<li class = "list-group-item"> 
       					<strong><%= item.event_date%><br/></strong>
       					<%= item.list_origin.name%> at <%= item.author.username %><br/><br/>
-      					Reminder: <%= item.name%>		
+      					Do not Forget: <%= item.name%>		
       				</li>
       				<br / >
       			<%})%>
