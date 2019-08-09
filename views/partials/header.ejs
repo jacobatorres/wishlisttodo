@@ -19,9 +19,13 @@
     />
     <link rel="stylesheet" href="/stylesheets/main.css" /> <!-- v important, the css -->
 
-    <script type = "text/javascript" src = "/jquery-341.js" ></script>
-    <script type = "text/javascript" src = "/js_for_searchbar.js" ></script>
+    <link rel="stylesheet" type="text/css" href="/jquery.datetimepicker.min.css" />
 
+    <script type = "text/javascript" src = "/jquery-341.js" ></script>
+
+    <script src = "/jquery.datetimepicker.full.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+  
 
     <title>WishListToDo</title>
   </head>
@@ -43,7 +47,6 @@
 
           <li><a href = "/searchusers" class = "nav-link">Search Users</a></li>
 
-  
 
           <% if(!currentUser) {%> 
               

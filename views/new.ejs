@@ -18,6 +18,16 @@
 	</div>
 
 	<div class = "form-group">
+		<label for = "eventdate">When's the event?</label>
+			<input class = "form-control" id = "datetime" name = "eventdate">
+
+		<script>
+			$("#datetime").datetimepicker();
+		</script>
+
+	</div>
+
+	<div class = "form-group">
 		<label for = "image">Image</label>
 		<input type = "file" id="image" name = "image" accept = "image/*" required>
 	</div>
@@ -32,6 +42,7 @@
 
 		<textarea class="form-control"  name="description"></textarea>
 	</div>
+
 
     <button class = "btn btn-outline-dark btn-light">Submit!</button>
 

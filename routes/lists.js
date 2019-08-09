@@ -5,7 +5,7 @@ var User = require("../models/user");
 var List = require("../models/list");
 var Item = require("../models/item");
 var NodeGeocoder = require('node-geocoder');
-
+var moment = require("moment");
 var middleware = require("../middleware");
 
 
@@ -85,12 +85,10 @@ router.post("/", upload.single('image'), middleware.isLoggedIn, function(req, re
 
 	const list_to_add = {
 		name: req.body.name, 
-		description: req.body.description
-
+		description: req.body.description,
+		event_date: moment(req.body.eventdate).format('MMMM Do YYYY, h:mm a')
 
 	};
-
-
 
 	geocoder.geocode(req.body.location, function(err,data){
 
@@ -131,7 +129,7 @@ router.post("/", upload.single('image'), middleware.isLoggedIn, function(req, re
 
 
 			List.create(list_to_add, function(err, list){
-
+				console.log("logger");
 				if (err){
 					console.log("error", "Error creating the list");
 					return res.redirect("back");

@@ -18,8 +18,9 @@ var listSchema = new mongoose.Schema({
 
 	location: String,
 	lat: Number,
-	lng: Number
+	lng: Number,
 
+	event_date: String
 
 });
 
