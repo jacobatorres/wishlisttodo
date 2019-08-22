@@ -20,7 +20,8 @@ var listSchema = new mongoose.Schema({
 	lat: Number,
 	lng: Number,
 
-	event_date: String
+	event_date: String,
+	event_date_df: Date
 
 });
 

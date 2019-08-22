@@ -80,7 +80,10 @@ router.get("/lists", function(req, res){
 
 
 			if (req.isAuthenticated()){
-				Item.find({'reserved': true, 'reserved_by.id': req.user._id}, function(err, usersitems){
+
+				// if user is logged in,
+				// theyll see all their reserved items
+				Item.find({'reserved': true, 'reserved_by.id': req.user._id}, null, {sort: {event_date_df: 1}}, function(err, usersitems) {
 
 					if (err){
 						console.log(err);
@@ -123,12 +126,20 @@ router.post("/", upload.single('image'), middleware.isLoggedIn, function(req, re
 		username: req.user.username
 	}
 
+	console.log(req.body.eventdate);
+
+	debugger;
+
 	const list_to_add = {
 		name: req.body.name, 
 		description: req.body.description,
-		event_date: moment(req.body.eventdate).format('MMMM Do YYYY, h:mm a')
+		event_date: moment(req.body.eventdate).format('MMMM Do YYYY, h:mm a'),
+		event_date_df: req.body.eventdate
 
 	};
+
+	console.log("TEST1");
+	console.log(list_to_add);
 
 	geocoder.geocode(req.body.location, function(err,data){
 

@@ -27,7 +27,8 @@ var itemSchema = new mongoose.Schema({
 		username: String
 	},
 
-	event_date: String
+	event_date: String,
+	event_date_df: Date
 	
 });
 
