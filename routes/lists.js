@@ -81,6 +81,24 @@ router.get("/lists", function(req, res){
 
 			if (req.isAuthenticated()){
 
+
+				// if logged in, show upcoming events
+				// sort by how near the next one is
+
+				upcoming_lists = [];
+
+
+				// if the event will happen this week
+				all_lists.forEach(function(list){
+					if (list.event_date_df > moment() && list.event_date_df < moment().add(7, 'days')) {
+						upcoming_lists.push(list);
+					}
+				})
+
+
+				upcoming_lists.sort((a, b) => (a.event_date_df > b.event_date_df) ? 1 : -1);
+
+
 				// if user is logged in,
 				// theyll see all their reserved items
 				Item.find({'reserved': true, 'reserved_by.id': req.user._id}, null, {sort: {event_date_df: 1}}, function(err, usersitems) {
@@ -88,7 +106,7 @@ router.get("/lists", function(req, res){
 					if (err){
 						console.log(err);
 					} else {
-						res.render("index", {lists:all_lists, usersitems: usersitems});
+						res.render("index", {lists:upcoming_lists, usersitems: usersitems});
 
 					}
 				})

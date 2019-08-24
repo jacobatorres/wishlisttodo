@@ -24,8 +24,17 @@
       	<%}%>
 
 
+      	<% if (!currentUser) {%> 
+      		<!-- not logged in, see all list -->
+      		<h1>All WishLists</h1>
 
-      	<h1>All WishLists</h1>
+      	<%} else {%>
+      		<!-- actually logged in, see upcoming ones -->
+      		<h1>Upcoming Events</h1>
+
+      	<%}%>
+
+
 
 
 		<button class = "btn btn-link mb-4" ><a href = "/lists/new" style= "text-decoration: underline; color: #43A4BC;" >Make a new list</a></button>
@@ -60,7 +69,7 @@
 		                  <hr />
  -->		              
 		                    
-		                  	<p class = "card-text float-left"><%= list.description %> </p>
+		                  	<p class = "card-text float-left"><%= list.event_date %> </p>
 			                <p class = "card-text float-right text-secondary" style = "font-size: 1rem;">(by <%= list.author.username%>)</p>
 
 		                </div>
