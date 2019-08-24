@@ -13,11 +13,29 @@
       		<h1> Reminders </h1>
       		<ul class = "list-group">
       			<% usersitems.forEach(function(item){ %>
-      				<li class = "list-group-item"> 
+      				
+      				<!-- if this item is happening this week, color it with yellow -->
+					<% if (item.event_date_df > moment() && item.event_date_df < moment().add(7, 'days')) {%>
+
+      				<li class = "list-group-item bg-warning"> 
       					<strong><%= item.event_date%><br/></strong>
       					<%= item.list_origin.name%> at <%= item.author.username %><br/><br/>
       					Do not Forget: <%= item.name%>		
       				</li>
+
+					<% } else {%>
+
+	      				<li class = "list-group-item" class = ""> 
+	      					<strong><%= item.event_date%><br/></strong>
+	      					<%= item.list_origin.name%> at <%= item.author.username %><br/><br/>
+	      					Do not Forget: <%= item.name%>		
+	      				</li>
+					<%}%>
+      					
+
+
+
+
       				<br / >
       			<%})%>
       		</ul>

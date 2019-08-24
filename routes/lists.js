@@ -106,7 +106,7 @@ router.get("/lists", function(req, res){
 					if (err){
 						console.log(err);
 					} else {
-						res.render("index", {lists:upcoming_lists, usersitems: usersitems});
+						res.render("index", {lists:upcoming_lists, usersitems: usersitems, moment: moment});
 
 					}
 				})
