@@ -391,4 +391,37 @@ router.delete("/lists/:id", middleware.checkownership, function(req, res){
 
 });
 
+
+router.get("/searchlists", middleware.isLoggedIn, function(req, res){
+
+	List.find({}, function(err, all_lists){
+		if(err){
+			req.flash("error", "There was an error fetching the lists.");
+			return res.redirect("back");
+		} else {
+
+				// all_lists shows all lists
+				// show also upcoming lists
+
+				upcoming_lists = [];
+
+				all_lists.forEach(function(list){
+					if (list.event_date_df > moment() && list.event_date_df < moment().add(7, 'days')) {
+						upcoming_lists.push(list);
+					}
+				})
+
+
+				upcoming_lists.sort((a, b) => (a.event_date_df > b.event_date_df) ? 1 : -1);
+
+
+				res.render("searchlists", {all_lists: all_lists, upcoming_lists: upcoming_lists});
+
+
+		}
+	})
+})
+
+
+
 module.exports = router;
