@@ -3,6 +3,7 @@
 var middlewareobject = {};
 var List = require("../models/list");
 var User = require("../models/user");
+var moment = require("moment");
 
 
 middlewareobject.checkownership = function(req, res, next){
@@ -97,7 +98,26 @@ middlewareobject.isuserthesame = function(req, res, next){
 }
 
 
+middlewareobject.verifyeventfuture =  function(req, res, next){
+	
+	console.log(req.body.eventdate);
+	
+	// check if the event in the list event date is not in the past
+	if (moment(req.body.eventdate) <= moment()) {
 
+		console.log("no");
+
+		req.flash("error", "Date is in the past!");
+		res.redirect("/lists/new");
+	} else {
+		console.log("yes");
+		next();
+	}
+
+
+
+
+}
 
 
 module.exports = middlewareobject;

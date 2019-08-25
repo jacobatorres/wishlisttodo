@@ -153,7 +153,7 @@
 			// make a new li, append to ul  				<li class = "list-group-item"><span></span> Visit Hagrid</li>
 
 			$('ul[class = "list-group my-5"]').append('<li class = "list-group-item"> ' + newtodo + '</li>');
-
+	
 			var url_for_local = 'http://' + '<%= process.env.IP %>' + ':' + '<%= process.env.PORT %>/' + 'lists/<%= list._id%>/items';
 			var url_for_prod = 'https://ancient-crag-64403.herokuapp.com/' + 'lists/<%= list._id%>/items';
 			var url_for_deployment = ('<%= process.env.DATABASEURL %>' == 'mongodb://localhost:27017/wishlist_appv5') ? url_for_local : url_for_prod

@@ -136,7 +136,7 @@ router.get("/lists/new", middleware.isLoggedIn, function(req, res){
 
 
 // create route 
-router.post("/", upload.single('image'), middleware.isLoggedIn, function(req, res){
+router.post("/", upload.single('image'), middleware.isLoggedIn, middleware.verifyeventfuture, function(req, res){
 
 
 	const author_of_list = {
@@ -259,7 +259,7 @@ router.get("/lists/:id", middleware.isLoggedIn, function(req, res){
 });
 
 // edit 
-router.get("/lists/:id/edit", middleware.isLoggedIn, middleware.checkownership, function(req, res){
+router.get("/lists/:id/edit", middleware.isLoggedIn, middleware.checkownership, middleware.verifyeventfuture, function(req, res){
 
 	List.findById(req.params.id, function(err, foundlist){
 		if (err){
