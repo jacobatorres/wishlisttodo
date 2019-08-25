@@ -103,10 +103,20 @@ router.get("/lists", function(req, res){
 				// theyll see all their reserved items
 				Item.find({'reserved': true, 'reserved_by.id': req.user._id}, null, {sort: {event_date_df: 1}}, function(err, usersitems) {
 
+					items_to_happen = [];
+
+					// get only those that is still about to happen
+					usersitems.forEach(function(item){
+						if (item.event_date_df > moment()) {
+							items_to_happen.push(item);
+						}
+					});
+
+
 					if (err){
 						console.log(err);
 					} else {
-						res.render("index", {lists:upcoming_lists, usersitems: usersitems, moment: moment});
+						res.render("index", {lists:upcoming_lists, usersitems: items_to_happen, moment: moment});
 
 					}
 				})
@@ -243,11 +253,11 @@ router.get("/lists/:id", middleware.isLoggedIn, function(req, res){
 					console.log(err);
 				} else if (list_item.length == 0){
 					console.log("no items");
-					res.render("show", {list: foundlist, items: {}});
+					res.render("show", {list: foundlist, items: {}, moment:moment});
 				} else {
 					// also show all items where this is the user
 					console.log("some items");
-					res.render("show", {list: foundlist, items: list_item});
+					res.render("show", {list: foundlist, items: list_item, moment:moment });
 
 				}
 			})

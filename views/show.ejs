@@ -21,7 +21,10 @@
 				</div>
 			</div>
 			<% if (list.author.id.equals(currentUser._id) || currentUser.isAdmin) {%>
-				<button class = "btn btn-link mb-4" ><a href = "/lists/<%= list._id %>/edit" style= "text-decoration: underline; color: #6ADB3A;">Edit</a></button>
+
+				<% if ( list.event_date_df > moment() ) { %>
+					<button class = "btn btn-link mb-4" ><a href = "/lists/<%= list._id %>/edit" style= "text-decoration: underline; color: #6ADB3A;">Edit</a></button>
+				<%}%>
 
 				<form style="display: inline;" action = "/lists/<%= list._id %>?_method=DELETE" method="POST">
 					<button class = "btn btn-link mb-4" style= "text-decoration: underline; color: #CB2530;">Delete</button>
@@ -44,39 +47,49 @@
 
 			<ul class = "list-group my-5">
 
-				<% if (list.author.id.equals(currentUser._id)) {%>
-					<input class="form-control list-group-item mb-2"  type = "text" name = "name" placeholder = "Add new Item">
+				<!--  if the list already happened, you cant add or reserve -->
+				<% if ( list.event_date_df < moment() )  { %>
+					<input class="form-control list-group-item mb-2" name = "name" placeholder = "Event has already happened" disabled>
+
+				<%} else {%>
+
+					<%if (list.author.id.equals(currentUser._id)) {%>
+						<input class="form-control list-group-item mb-2"  type = "text" name = "name" placeholder = "Add new Item">
+					<% } %>
+
+					<% if (items.length > 0) { %>
+						<% items.forEach(function(item){ %>
+							<li id = "can-be-reserved" class = "list-group-item">
+
+							    <%= item.name %>
+
+
+
+							    <!-- if someone else already called reserved it -->
+							    <% if (item.reserved) { %>
+								    <small style = "display: inline;" class = "float-right">reserved by <%= item.reserved_by.username%>
+								    	
+								    	<% if (item.reserved_by.id.equals(currentUser._id)) {%>
+								    		(you)
+								    	<%}%>
+
+								    </small>
+
+							   	<%} else {%>
+								   	<span id = "<%= item._id%>" class = "float-right"><a href = "/lists/<%= list._id%>">Reserve</a></span>
+							   	<% }%>
+
+
+							</li>
+
+
+
+						<% }) %>
+					<% } %>
+
+
 				<% } %>
 
-				<% if (items.length > 0) { %>
-					<% items.forEach(function(item){ %>
-						<li id = "can-be-reserved" class = "list-group-item">
-
-						    <%= item.name %>
-
-
-
-						    <!-- if someone else already called reserved it -->
-						    <% if (item.reserved) { %>
-							    <small style = "display: inline;" class = "float-right">reserved by <%= item.reserved_by.username%>
-							    	
-							    	<% if (item.reserved_by.id.equals(currentUser._id)) {%>
-							    		(you)
-							    	<%}%>
-
-							    </small>
-
-						   	<%} else {%>
-							   	<span id = "<%= item._id%>" class = "float-right"><a href = "/lists/<%= list._id%>">Reserve</a></span>
-						   	<% }%>
-
-
-						</li>
-
-
-
-					<% }) %>
-				<% } %>
 
 			</ul>
 
