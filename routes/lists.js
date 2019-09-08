@@ -269,7 +269,7 @@ router.get("/lists/:id", middleware.isLoggedIn, function(req, res){
 });
 
 // edit 
-router.get("/lists/:id/edit", middleware.isLoggedIn, middleware.checkownership, middleware.verifyeventfuture, function(req, res){
+router.get("/lists/:id/edit", middleware.isLoggedIn, middleware.checkownership,  function(req, res){
 
 	List.findById(req.params.id, function(err, foundlist){
 		if (err){
@@ -312,6 +312,9 @@ router.put("/lists/:id", upload.single('image'), middleware.checkownership, func
 				list.lat = data[0].latitude;
 				list.lng = data[0].longitude;
 				list.location = data[0].formattedAddress;
+				
+				list.event_date = moment(req.body.eventdate).format('MMMM Do YYYY, h:mm a');
+				list.event_date_df = req.body.eventdate;
 
 			});
 
