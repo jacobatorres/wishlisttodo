@@ -57,7 +57,7 @@ mongoose.connect(process.env.DATABASEURL, {
 
 // for flash
 app.use(cookieParser('secret'));
-app.use(session({cookie: {maxAge: 60000}}));
+app.use(session({cookie: {maxAge: null}}));
 app.use(flash());
 
 // mongoose.connect('mongodb://localhost:27017/wishlist_appv4', {useNewUrlParser: true});
