@@ -11,6 +11,10 @@
 
       	<% if (currentUser) {%> 
       		<h1> Reminders </h1>
+
+      		<% if (usersitems.length == 0) { %>
+      			 <p>Nothing reserved right now. </p>
+      		<% } %>
       		<ul class = "list-group">
       			<% usersitems.forEach(function(item){ %>
       				
