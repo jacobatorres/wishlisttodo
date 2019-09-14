@@ -1,0 +1,104 @@
+<% include ./partials/header %>
+
+
+<h1>Upcoming Events this Week</h1>
+
+        <div class="row">
+          <div class="col">
+            <div class="card-columns">
+
+				<% upcoming_lists.forEach(function(list){ %>
+
+		              <div class="card">
+
+		              	<a href = "/lists/<%=list._id %>" style= "color: black;">
+		                <img
+		                  src="<%= list.image%>"
+		                  alt=""
+		                  class="img-fluid card-img-top"
+		                />  
+		                </a>
+
+
+		                <div class="card-body">
+		                  <a href = "/lists/<%=list._id %>" style= "color: black;">
+		                
+			                  <h4 class="card-title">
+			                    <%= list.name %>
+			                  </h4>
+		                  </a>
+<!-- 		                  <small class="text-muted">Written by jacob</small>
+		                  <hr />
+ -->		              
+		                    
+		                  	<p class = "card-text float-left"><%= list.event_date %> </p>
+			                <p class = "card-text float-right text-secondary" style = "font-size: 1rem;">(by <%= list.author.username%>)</p>
+
+		                </div>
+
+
+			            </div>
+
+
+				<% })%> 
+		       
+		       </div>
+
+
+              </div>
+            </div>
+
+
+
+
+<h1>All Lists</h1>
+
+        <div class="row">
+          <div class="col">
+            <div class="card-columns">
+
+				<% all_lists.forEach(function(list){ %>
+
+		              <div class="card">
+
+		              	<a href = "/lists/<%=list._id %>" style= "color: black;">
+		                <img
+		                  src="<%= list.image%>"
+		                  alt=""
+		                  class="img-fluid card-img-top"
+		                />  
+		                </a>
+
+
+		                <div class="card-body">
+		                  <a href = "/lists/<%=list._id %>" style= "color: black;">
+		                
+			                  <h4 class="card-title">
+			                    <%= list.name %>
+			                  </h4>
+		                  </a>
+<!-- 		                  <small class="text-muted">Written by jacob</small>
+		                  <hr />
+ -->		              
+		                    
+		                  	<p class = "card-text float-left"><%= list.event_date %> </p>
+			                <p class = "card-text float-right text-secondary" style = "font-size: 1rem;">(by <%= list.author.username%>)</p>
+
+		                </div>
+
+
+			            </div>
+
+
+				<% })%> 
+		       
+		       </div>
+
+
+              </div>
+            </div>
+
+
+
+
+<% include ./partials/footer %>
