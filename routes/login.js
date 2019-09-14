@@ -22,7 +22,7 @@ router.get("/signup", function(req, res){
 router.post("/signup", function(req, res){
 
 	var isAdminvalue = false;
-	if (req.body.AdminCode == "auntiedope") {
+	if (req.body.AdminCode == "ADMIN55") {
 		isAdminvalue = true;
 	}
 
