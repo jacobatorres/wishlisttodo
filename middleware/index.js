@@ -21,8 +21,6 @@ middlewareobject.checkownership = function(req, res, next){
 		// search for the list he clicked, then check if he owns it
 		List.findById(req.params.id, function(err, foundlist){
 
-			console.log(foundlist.author);
-
 			// if the current user owns the list, or user is an admin, they can see this list
 			if(foundlist.author.id.equals(req.user._id) || req.user.isAdmin){
 
@@ -70,16 +68,12 @@ middlewareobject.isuserthesame = function(req, res, next){
 	// if logged in
 	if (req.isAuthenticated()) {
 
-		console.log(req.user._id);
-		console.log(req.params.usernameid);
 		// search for the list he clicked, then check if he owns it
 		User.findById(req.params.usernameid, function(err, founduser){
 
 
 			// does he own the list?
 
-			console.log(req.params.usernameid);
-			console.log(founduser._id);
 			if(founduser._id.equals(req.user._id)){
 				next();
 			} else {
@@ -100,17 +94,13 @@ middlewareobject.isuserthesame = function(req, res, next){
 
 middlewareobject.verifyeventfuture =  function(req, res, next){
 	
-	console.log(req.body.eventdate);
-	
 	// check if the event in the list event date is not in the past
 	if (moment(req.body.eventdate) <= moment()) {
-
-		console.log("no");
 
 		req.flash("error", "Date is in the past!");
 		res.redirect("/lists/new");
 	} else {
-		console.log("yes");
+
 		next();
 	}
 

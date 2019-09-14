@@ -18,10 +18,6 @@ router.post("/lists/:id/items", middleware.checkownership, function(req, res){
 
 	var obj = {};
 
-	console.log("BAN");
-
-	console.log(req.body);
-
 	Item.create(req.body, function(err, list){
 
 		if (err){
@@ -45,9 +41,7 @@ router.post("/lists/:id/itemsreserve/:item_id", function(req, res){
 
 
 	var obj = {};
-	console.log("going");
-	console.log(req.params.item_id);
-	console.log(req.body);
+
 	Item.findByIdAndUpdate(req.params.item_id, req.body, function(err, updateditem){
 
 		if (err){
@@ -55,11 +49,6 @@ router.post("/lists/:id/itemsreserve/:item_id", function(req, res){
 			return res.redirect("back");
 		} 
 
-		console.log("SSUCC");
-
-		console.log(req.body);
-		console.log("ASJASDJASDJA");
-		console.log(updateditem);
 		// if successful, flash success and see show page
 
 

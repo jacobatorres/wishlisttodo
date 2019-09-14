@@ -33,7 +33,6 @@ router.post("/signup", function(req, res){
 	User.register(newUser, req.body.password, function(err, user){
 
 		if (err){
-			console.log("im here");
 			console.log(err);
 			req.flash("error", err.message);
 			return res.redirect("/lists");

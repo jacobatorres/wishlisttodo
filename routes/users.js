@@ -21,6 +21,8 @@ const imageFilter = function (req, file, cb) {
     cb(null, true);
 };
 
+
+
 const upload = multer({ storage: storage, fileFilter: imageFilter});
 
 
@@ -153,9 +155,6 @@ router.get("/searchusers", middleware.isLoggedIn, function(req, res){
 })
 
 router.get("/search", function(req, res, next){
-
-	console.log("entered the right place");
-	console.log(req.query.q);
 
 	User.find({
 		username: {

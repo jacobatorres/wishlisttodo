@@ -154,10 +154,6 @@ router.post("/", upload.single('image'), middleware.isLoggedIn, middleware.verif
 		username: req.user.username
 	}
 
-	console.log(req.body.eventdate);
-
-	debugger;
-
 	const list_to_add = {
 		name: req.body.name, 
 		description: req.body.description,
@@ -165,9 +161,6 @@ router.post("/", upload.single('image'), middleware.isLoggedIn, middleware.verif
 		event_date_df: req.body.eventdate
 
 	};
-
-	console.log("TEST1");
-	console.log(list_to_add);
 
 	geocoder.geocode(req.body.location, function(err,data){
 
@@ -208,7 +201,7 @@ router.post("/", upload.single('image'), middleware.isLoggedIn, middleware.verif
 
 
 			List.create(list_to_add, function(err, list){
-				console.log("logger");
+
 				if (err){
 					console.log("error", "Error creating the list");
 					return res.redirect("back");
@@ -252,11 +245,9 @@ router.get("/lists/:id", middleware.isLoggedIn, function(req, res){
 				if (err){
 					console.log(err);
 				} else if (list_item.length == 0){
-					console.log("no items");
 					res.render("show", {list: foundlist, items: {}, moment:moment});
 				} else {
 					// also show all items where this is the user
-					console.log("some items");
 					res.render("show", {list: foundlist, items: list_item, moment:moment });
 
 				}
