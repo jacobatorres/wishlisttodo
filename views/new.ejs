@@ -18,13 +18,17 @@
 	</div>
 
 	<div class = "form-group">
-		<h2 id="basic">Basic</h2>
+		<label for = "eventdate">When's the event?</label>
 
-		<p><code>flatpickr</code> without any config.</p>
+		<input class="form-control flatpickr" type="text" id= "datetimefp" name = "eventdate" placeholder="Select Date.." readonly="readonly">
+		<script type="text/javascript">
+			
+			const calendars = flatpickr("#datetimefp", {
+			    enableTime: true,
+			    dateFormat: "Y-m-d H:i",
+			});
 
-		<p><input class="flatpickr flatpickr-input active" type="text" placeholder="Select Date.." readonly="readonly"></p>
-
-
+		</script>
 
 
 	</div>

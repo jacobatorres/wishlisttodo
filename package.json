@@ -20,6 +20,7 @@
     "ejs": "^2.6.1",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
+    "flatpickr": "^4.6.2",
     "heroku": "^7.26.2",
     "jquery": "^3.4.1",
     "jquery-datetimepicker": "^2.5.21",

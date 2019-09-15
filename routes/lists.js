@@ -7,6 +7,7 @@ var Item = require("../models/item");
 var NodeGeocoder = require('node-geocoder');
 var moment = require("moment");
 var middleware = require("../middleware");
+var flatpickr = require("flatpickr");
 
 
 // for geocoding the values for Google maps
@@ -141,13 +142,12 @@ router.get("/errordefasssult", function(req, res){
 
 // new route
 router.get("/lists/new", middleware.isLoggedIn, function(req, res){
-	res.render("new");
+	res.render("new", {flatpickr: flatpickr});
 });
 
 
 // create route 
 router.post("/", upload.single('image'), middleware.isLoggedIn, middleware.verifyeventfuture, function(req, res){
-
 
 	const author_of_list = {
 		id: req.user._id,
