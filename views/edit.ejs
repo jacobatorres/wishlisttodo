@@ -17,17 +17,25 @@
 		<input class="form-control"  type = "text" name = "name" value = "<%= list.name %>">
 	</div>
 
+
+
 	<div class = "form-group">
 		<label for = "eventdate">When's the event?</label>
-			<input class = "form-control" id = "datetime" name = "eventdate" value = "<%= list.event_date %>"  required>
 
-		<script>
-			$("#datetime").datetimepicker();
+		<input class="form-control flatpickr" type="text" id= "datetimefp" name = "eventdate" placeholder="<%= list.event_date %>" readonly="readonly">
+		<script type="text/javascript">
+			
+			const calendars = flatpickr("#datetimefp", {
+			    enableTime: true,
+			    dateFormat: "Y-m-d H:i",
+			});
+
 		</script>
 
 
-
 	</div>
+
+
 
 	<div class = "form-group">
 		<label for = "image">Image</label>

@@ -264,11 +264,14 @@ router.get("/lists/:id/edit", middleware.isLoggedIn, middleware.checkownership, 
 
 	List.findById(req.params.id, function(err, foundlist){
 		if (err){
+
 			console.log("err");
 			req.flash("error", "Error editing the list");
 			return res.redirect("back");
 
 		} else {
+
+
 			res.render("edit", {list:foundlist});
 
 		}
@@ -289,7 +292,6 @@ router.put("/lists/:id", upload.single('image'), middleware.checkownership, func
 			return res.redirect("back");
 
 		} else {
-
 
 			// update the parts for Google maps
 			geocoder.geocode(req.body.location, function(err, data){
