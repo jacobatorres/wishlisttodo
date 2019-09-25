@@ -11,25 +11,33 @@ A use case is when there's an event (e.g. Birthday Party). A user can create a l
 <kbd>
   <img src="imageforreadme/pic1makelist.png">
 </kbd>
-<br/>
+
+
+
 Once this event/list is done, you can put items that you might need for the event (e.g. Cups, Ice, Dip). 
 
 <kbd>
   <img src="imageforreadme/pic2listinfo.png">
 </kbd>
-<br/>
+
+
+
 As a user, I can search for that event/list and reserve an item in that event.
 
 <kbd>
   <img src="imageforreadme/pic3reserve.png">
 </kbd>
-<br/>
+
+
+
 All reserved items will appear in the user's home page. Items corresponding to an event/list that's happening in a week will be marked orange to alert the user.
 
 <kbd>
   <img src="imageforreadme/pic4itemlist.png">
 </kbd>
-<br/>
+
+
+
 When an event/list has already passed, its items will be deleted and the user cannot toggle the said list anymore.
 
 ### Other Useful Features
@@ -39,19 +47,25 @@ When an event/list has already passed, its items will be deleted and the user ca
 <kbd>
   <img src="imageforreadme/pic5.png">
 </kbd>
-<br/>
+
+
+
 - You can also search users in the application.
 
 <kbd>
   <img src="imageforreadme/pic6.png">
 </kbd>
-<br/>
+
+
+
 - You can see your profile where you can see all your lists, and you can edit information about yourself.
 
 <kbd>
   <img src="imageforreadme/pic7.png">
 </kbd>
-<br/>
+
+
+
 - Items reserved are sorted by date.
 - You must be logged in to create a list and search for users and lists.
 - You cannot edit and delete lists that are not yours, unless you are a SuperAdmin.
