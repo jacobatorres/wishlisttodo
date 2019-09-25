@@ -8,7 +8,9 @@ This project uses **MongoDB**, **ExpressJS** and **NodeJS** for back-end, and **
 ## How the Application Works
 A use case is when there's an event (e.g. Birthday Party). A user can create a list and consider that an event. That event will have relevant information such as the time, place, and description.
 
-![](imageforreadme/pic1makelist.png)
+<kbd>
+  <img src="imageforreadme/pic1makelist.png">
+</kbd>
 
 Once this event/list is done, you can put items that you might need for the event (e.g. Cups, Ice, Dip). 
 
