@@ -1,5 +1,5 @@
 # wishlisttodo
-One of my pet project that allows you to create list of items, and once the list is done other users can 'reserve' an item. 
+One of my pet project that allows you to create list of items, and once the list is done other users can 'reserve' an item. Application can be found in https://ancient-crag-64403.herokuapp.com/
 
 ## Tech Used
 This project uses **MongoDB**, **ExpressJS** and **NodeJS** for back-end, and **Bootstrap** for front-end. I also used **Google API** for displaying location in a map, and **Cloudinary** to store the images.
