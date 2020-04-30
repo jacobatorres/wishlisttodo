@@ -22,7 +22,7 @@
     "express-session": "^1.16.2",
     "flatpickr": "^4.6.2",
     "heroku": "^7.26.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery-datetimepicker": "^2.5.21",
     "jsdom": "^15.1.1",
     "lodash": "^4.17.15",
