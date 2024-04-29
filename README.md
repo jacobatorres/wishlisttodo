@@ -60,10 +60,6 @@ When an event/list has already passed, its items will be deleted and the user ca
 
 - You can see your profile where you can see all your lists, and you can edit information about yourself.
 
-<kbd>
-  <img src="imageforreadme/pic7.png">
-</kbd>
-
 \
 
 - Items reserved are sorted by date.
